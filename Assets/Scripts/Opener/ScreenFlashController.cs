@@ -22,8 +22,8 @@ public class ScreenFlashController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (alphaValue >= 0.0f) {
-			if (counter >= 10) {
-				alphaValue -= 0.01f;
+			if (counter >= 5) {
+				alphaValue -= 0.03f;
 				counter = 0;
 			}
 		}
@@ -31,7 +31,7 @@ public class ScreenFlashController : MonoBehaviour {
 		newColor = new Color (screenFilter.color.r, screenFilter.color.g, screenFilter.color.b, alphaValue);
 		screenFilter.color = newColor;
 
-		if (counter >= 100) {
+		if (counter >= 85) {
 			SceneManager.LoadScene ("Scroller");
 		}
 	}

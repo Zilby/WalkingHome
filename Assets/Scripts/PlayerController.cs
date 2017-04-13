@@ -5,8 +5,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
     private Rigidbody2D hero; // the hero's physics body
-	public SpriteRenderer sr; // the hero's sprite renderer
+	public static SpriteRenderer sr; // the hero's sprite renderer
 	public static bool characterPause; // determines if the character will be stopped
+	private static Sprite orig;
 
     [SerializeField]
     private float moveSpeed; // determines the moveSpeed of the hero
@@ -33,6 +34,7 @@ public class PlayerController : MonoBehaviour {
 		confidence = 10; // initializes confidence to max
 		frustration = 0; // initializes frustration to min
 		characterPause = false; // initializes character to not be stopped
+		orig = sr.sprite;
 	}
 	
 	// Update is called once per frame
@@ -75,10 +77,11 @@ public class PlayerController : MonoBehaviour {
 		// determine animation displayed TODO vertical animations?
 		if (Mathf.Abs (horizontal) >= 0.1) {
 			// walking animation for horizontal direction
-			anim.SetBool ("walking", true);
+			anim.enabled = true;
 		} else {
 			// idle animation
-			anim.SetBool ("walking", false);
+			stopAnimation();
+			sr.sprite = orig;
 		}
 
 		// actual movement for the hero occurs here by applying a change to the hero's velocity
@@ -91,7 +94,15 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	// stops the hero's movement animation
-	public static void stopAnimation() {
-		anim.SetBool ("walking", false);
+	public void stopAnimation() {
+		StartCoroutine(PauseAnim());
+	}
+
+	private IEnumerator PauseAnim() {
+		yield return new WaitForSeconds (0.00000001f);
+		while (sr.sprite != orig) {
+			yield return new WaitForSeconds (0.00000001f);
+		}
+		anim.enabled = false;
 	}
 }

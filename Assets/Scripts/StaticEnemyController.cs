@@ -30,7 +30,7 @@ public class StaticEnemyController : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other)
 	{
 		PlayerController.characterPause = true; // sets the hero to pause
-		PlayerController.stopAnimation (); // stops the animation of the hero
+		other.GetComponent<PlayerController>().stopAnimation (); // stops the animation of the hero
 		startPlayerMovementCounter (); // starts the timer
 	}
 

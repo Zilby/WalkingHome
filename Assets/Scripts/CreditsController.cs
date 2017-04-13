@@ -12,14 +12,14 @@ public class CreditsController : MonoBehaviour {
 
 	void Start() {
 		faderImage = GetComponent<Image> ();
-		counter = 0;
+		counter = -140;
 		alpha = 0.0f;
 	}
 
 	void Update() {
 		
 		if (alpha < 1.0f) {
-			if (counter == 30) {
+			if (counter == 10) {
 				alpha += .1f;
 				counter = 0;
 			}
