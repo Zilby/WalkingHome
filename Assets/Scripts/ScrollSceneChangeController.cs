@@ -23,7 +23,7 @@ public class ScrollSceneChangeController : MonoBehaviour {
 	void MakeScene() {
 		if (heroColl.IsTouching (sceneColl)) {
 			GameController.frustration -= 2;
-			SceneManager.LoadSceneAsync ("PixelCityMaze_Huh"); // loads the next level
+			SceneManager.LoadSceneAsync ("Transition"); // loads the next level
 		}
 	}
 }

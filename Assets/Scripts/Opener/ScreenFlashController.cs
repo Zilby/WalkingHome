@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class ScreenFlashController : MonoBehaviour {
 
 	public Image screenFilter;
+	public GameObject filter;
 
 	private float alphaValue;
 	private int counter;
@@ -15,6 +16,7 @@ public class ScreenFlashController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		screenFilter = GetComponent<Image> ();
+		filter = screenFilter.gameObject;
 		counter = 0;
 		alphaValue = 1.0f;
 	}
@@ -31,8 +33,11 @@ public class ScreenFlashController : MonoBehaviour {
 		newColor = new Color (screenFilter.color.r, screenFilter.color.g, screenFilter.color.b, alphaValue);
 		screenFilter.color = newColor;
 
-		if (counter >= 85) {
+		// added a change here so that the transition can be used elsewhere by naming the image gameobject something unique
+		if (counter >= 85 && filter.name.Equals ("OpenerTextFilter")) {
 			SceneManager.LoadScene ("Scroller");
+		} else if (counter >= 85 && filter.name.Equals("TransitionFilter")) {
+			SceneManager.LoadScene ("PixelCityMaze_Huh");
 		}
 	}
 }
