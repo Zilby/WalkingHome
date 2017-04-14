@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class ScrollSceneChangeController : MonoBehaviour {
 
 	public Collider2D heroColl; // the hero's collider
-	public Collider2D sceneColl; // the scene changing collider
+	private Collider2D sceneColl; // the scene changing collider
 
 	// Use this for initialization
 	void Start () {

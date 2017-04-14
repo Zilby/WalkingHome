@@ -1,20 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 
     private Rigidbody2D hero; // the hero's physics body
 	public static SpriteRenderer sr; // the hero's sprite renderer
-	public static bool characterPause; // determines if the character will be stopped
+	private bool characterPause; // determines if the character will be stopped
 	private static Sprite orig;
 
-    [SerializeField]
-    private float moveSpeed; // determines the moveSpeed of the hero
+    [SerializeField] float moveSpeed; // determines the moveSpeed of the hero
 
-    public int paranoia; // synonymous with anxiety in discussion below
-    public int confidence; // see def below
-    public int frustration; // see def below
+	public static int paranoia; // synonymous with anxiety in discussion below
+	public static int confidence; // see def below
+	public static int frustration; // see def below
+	public Slider fSlider;
+	public Slider pSlider;
+	public Slider cSlider;
 	private int counter = 0; // used to modify meters
 
 	static Animator anim; // controls the animations for this hero
@@ -48,18 +51,9 @@ public class PlayerController : MonoBehaviour {
 		if (!characterPause) {
 			MovePlayer (xDir, yDir); // moves the character
 		}
-
-		// the following body of code manipulates the hero's frustration values and should be in its own function TODO
-		bool close = FrustrationController.closeTo (GameObject.FindGameObjectWithTag("hero"), GameObject.FindGameObjectWithTag("enemy"));
-		if (frustration < 10) {
-			if (close) {
-				counter += 1;
-			}
-			if (counter >= 150) {
-				frustration += 1;
-				counter = 0;
-			}
-		}
+		fSlider.value = frustration;
+		pSlider.value = paranoia;
+		cSlider.value = confidence;
 	}
 
 	// moves the player, given two input floats
@@ -104,5 +98,11 @@ public class PlayerController : MonoBehaviour {
 			yield return new WaitForSeconds (0.00000001f);
 		}
 		anim.enabled = false;
+	}
+
+	public bool CharacterPause
+	{
+		get { return characterPause; }
+		set { characterPause = value; }
 	}
 }

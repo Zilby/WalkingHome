@@ -17,7 +17,9 @@ public class CreditsController : MonoBehaviour {
 	}
 
 	void Update() {
-		
+		if (Input.GetKeyDown ("space")) {
+			SceneManager.LoadScene ("TitleScreen");
+		}
 		if (alpha < 1.0f) {
 			if (counter == 10) {
 				alpha += .1f;
@@ -32,4 +34,5 @@ public class CreditsController : MonoBehaviour {
 		counter += 1;
 		faderImage.color = new Color (faderImage.color.r, faderImage.color.r, faderImage.color.r, alpha);
 	}
+
 }

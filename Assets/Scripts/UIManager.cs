@@ -6,6 +6,10 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour {
 
+	public void Start() {
+		Time.timeScale = 1;
+	}
+
 	// plays the game!
 	public void Play() {
 		SceneManager.LoadScene("OpenerText");

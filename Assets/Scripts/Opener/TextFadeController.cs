@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TextFadeController : MonoBehaviour {
 
@@ -19,6 +20,9 @@ public class TextFadeController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (Input.GetKeyDown ("space")) {
+			SceneManager.LoadScene ("Scroller");
+		}
 		if (fadeFloat <= 255.0f) {
 			if (counter >= 30) {
 				fadeFloat += 1.0f;
