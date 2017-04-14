@@ -3,39 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // barebones movement for the maze, where animations don't apply
-public class MazePlayerController : MonoBehaviour {
-
-	public float moveSpeed;
-
-	public int paranoia; 
-	public int confidence;
-	public int frustration; 
+public class MazePlayerController : PlayerController {
+	//public float moveSpeed;
 
 	private float xDir;
 	private float yDir;
 
-	private static Sprite orig;
-	public static SpriteRenderer sr; // the hero's sprite renderer
-	static Animator anim; // controls the animations for this hero
-
 	// Use this for initialization
 	void Start () {
-		//hero = GetComponent<Rigidbody2D> ();
-		paranoia = 0;
-		confidence = 10;
-		frustration = 0;
+		hero = GetComponent<Rigidbody2D> ();
 		anim = GetComponent<Animator> (); // gets the animator for the hero
 		sr = GetComponent<SpriteRenderer> (); // gets the sprite renderer for the hero
 		xDir = yDir = 0;
 		orig = sr.sprite;
+		characterPause = false;
 	}
 
 	// Update is called once per frame
 	void FixedUpdate () {
-		MovePlayer(xDir, yDir);
+		if (characterPause) {
+			characterPauseMove (); // pauses the hero's movement 
+		}
+		else {
+			MovePlayer (xDir, yDir); // moves the character
+		}
 	}
 
-	public void Update() {
+	void Update() {
 		xDir = Input.GetAxisRaw ("Horizontal");
 		yDir = Input.GetAxisRaw ("Vertical");
 	}
@@ -60,18 +54,5 @@ public class MazePlayerController : MonoBehaviour {
 			// face right
 			sr.flipX = false;
 		}
-	}
-
-	// stops the hero's movement animation
-	public void stopAnimation() {
-		StartCoroutine(PauseAnim());
-	}
-
-	private IEnumerator PauseAnim() {
-		yield return new WaitForSeconds (0.00000001f);
-		while (sr.sprite != orig) {
-			yield return new WaitForSeconds (0.00000001f);
-		}
-		anim.enabled = false;
 	}
 }

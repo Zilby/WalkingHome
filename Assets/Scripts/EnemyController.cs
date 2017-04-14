@@ -97,6 +97,7 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	void WaypointMove() {
+		/*
 		if (transform.position != waypoints[cur].position) {
 			Vector2 p = Vector2.MoveTowards(transform.position,
 				waypoints[cur].position,
@@ -105,6 +106,7 @@ public class EnemyController : MonoBehaviour {
 		}
 		// Waypoint reached, select next one
 		else cur = (cur + 1) % waypoints.Length;
+		*/
 	}
 }
 

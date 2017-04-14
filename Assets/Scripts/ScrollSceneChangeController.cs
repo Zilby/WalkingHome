@@ -22,8 +22,8 @@ public class ScrollSceneChangeController : MonoBehaviour {
 	// switches the scene on collision between the scene switcher box collider and the hero
 	void MakeScene() {
 		if (heroColl.IsTouching (sceneColl)) {
-			SceneManager.UnloadSceneAsync ("Scroller");
-			SceneManager.LoadSceneAsync ("Maze_version2"); // loads the next level
+			GameController.frustration -= 2;
+			SceneManager.LoadSceneAsync ("PixelCityMaze_Huh"); // loads the next level
 		}
 	}
 }

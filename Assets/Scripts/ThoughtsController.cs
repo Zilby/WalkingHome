@@ -53,9 +53,9 @@ public class ThoughtsController : MonoBehaviour {
 		text.enabled = false; 
 		catcall.SetActive (true); 
 		yield return new WaitForSeconds (5);
-		PlayerController.frustration += 5;
-		PlayerController.paranoia += 2;
-		PlayerController.confidence -= 1;
+		GameController.frustration += 5;
+		GameController.paranoia += 2;
+		GameController.confidence -= 1;
 		frustration.SetActive (true);
 		paranoia.SetActive (true);
 		text.enabled = true; 

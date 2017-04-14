@@ -5,22 +5,17 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 
-    private Rigidbody2D hero; // the hero's physics body
-	public static SpriteRenderer sr; // the hero's sprite renderer
-	private bool characterPause; // determines if the character will be stopped
-	private static Sprite orig;
+    protected Rigidbody2D hero; // the hero's physics body
+	public SpriteRenderer sr; // the hero's sprite renderer
+	protected bool characterPause; // determines if the character will be stopped
+	protected Sprite orig;
 
-    [SerializeField] float moveSpeed; // determines the moveSpeed of the hero
+    public float moveSpeed; // determines the moveSpeed of the hero
 
-	public static int paranoia; // synonymous with anxiety in discussion below
-	public static int confidence; // see def below
-	public static int frustration; // see def below
-	public Slider fSlider;
-	public Slider pSlider;
-	public Slider cSlider;
-	private int counter = 0; // used to modify meters
 
-	static Animator anim; // controls the animations for this hero
+	protected int counter = 0; // used to modify meters
+
+	protected Animator anim; // controls the animations for this hero
 
     //-Paranoia/anxiety: If paranoia/anxiety reaches its max capacity, speed increases? amount of blobs increases?
     //-Confidence:       If confidence reaches its minimum capacity, the player’s paranoia/anxiety and frustration meters
@@ -33,9 +28,7 @@ public class PlayerController : MonoBehaviour {
         hero = GetComponent<Rigidbody2D> (); // gets the physics body of the hero
 		anim = GetComponent<Animator> (); // gets the animator for the hero
 		sr = GetComponent<SpriteRenderer> (); // gets the sprite renderer for the hero
-		paranoia = 0; // initializes paranoia to min
-		confidence = 10; // initializes confidence to max
-		frustration = 0; // initializes frustration to min
+
 		characterPause = false; // initializes character to not be stopped
 		orig = sr.sprite;
 	}
@@ -48,12 +41,9 @@ public class PlayerController : MonoBehaviour {
 		if (characterPause) {
 			characterPauseMove (); // pauses the hero's movement 
 		}
-		if (!characterPause) {
+		else {
 			MovePlayer (xDir, yDir); // moves the character
 		}
-		fSlider.value = frustration;
-		pSlider.value = paranoia;
-		cSlider.value = confidence;
 	}
 
 	// moves the player, given two input floats
@@ -83,7 +73,7 @@ public class PlayerController : MonoBehaviour {
     }
 
 	// causes the hero to stop moving
-	void characterPauseMove () {
+	protected void characterPauseMove () {
 		hero.velocity = new Vector2 (0, 0);
 	}
 
@@ -92,7 +82,7 @@ public class PlayerController : MonoBehaviour {
 		StartCoroutine(PauseAnim());
 	}
 
-	private IEnumerator PauseAnim() {
+	protected IEnumerator PauseAnim() {
 		yield return new WaitForSeconds (0.00000001f);
 		while (sr.sprite != orig) {
 			yield return new WaitForSeconds (0.00000001f);
