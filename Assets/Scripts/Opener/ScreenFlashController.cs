@@ -11,6 +11,8 @@ public class ScreenFlashController : MonoBehaviour {
 	private float alphaValue;
 	private int counter;
 	private Color newColor;
+	public string scene;
+
 
 	// Use this for initialization
 	void Start () {
@@ -32,7 +34,7 @@ public class ScreenFlashController : MonoBehaviour {
 		screenFilter.color = newColor;
 
 		if (counter >= 85) {
-			SceneManager.LoadScene ("Scroller");
+			SceneManager.LoadScene (scene);
 		}
 	}
 }

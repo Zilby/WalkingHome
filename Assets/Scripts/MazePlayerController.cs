@@ -55,4 +55,11 @@ public class MazePlayerController : PlayerController {
 			sr.flipX = false;
 		}
 	}
+
+	public IEnumerator Delay() {
+		stopAnimation();
+		characterPause = true;
+		yield return new WaitForSeconds (0.4f);
+		characterPause = false;
+	}
 }

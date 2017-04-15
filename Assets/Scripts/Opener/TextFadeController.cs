@@ -8,6 +8,7 @@ public class TextFadeController : MonoBehaviour {
 
 	public Text text;
 	public float fadeFloat;
+	public string scene;
 
 	private int counter;
 
@@ -21,7 +22,7 @@ public class TextFadeController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown ("space")) {
-			SceneManager.LoadScene ("Scroller");
+			SceneManager.LoadScene (scene);
 		}
 		if (fadeFloat <= 255.0f) {
 			if (counter >= 30) {
