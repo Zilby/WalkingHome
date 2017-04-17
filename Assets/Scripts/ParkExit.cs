@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class ParkExit : MonoBehaviour {
 
-	void OnTriggerEnter2D(Collider2D col) {
+	void OnTriggerEnter(Collider col) {
 		if(col.gameObject.tag == "hero") {
 			SceneManager.LoadScene ("MazeTransition");
 		}

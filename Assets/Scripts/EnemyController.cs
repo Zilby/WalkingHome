@@ -34,7 +34,7 @@ public class EnemyController : MonoBehaviour {
 			end = waypoints [cur].position;
 		}
 	}
-
+		
 	void OnTriggerEnter(Collider col) {
 		if (col.gameObject.tag == "hero") {
 			if(comment) {
