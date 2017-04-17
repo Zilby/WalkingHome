@@ -16,6 +16,6 @@ public class SwitchAIController : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other) {
 		Debug.Log ("hey just passin' through");
-		EnemyController.EnemiesMove ();
+		//EnemyController.Move ();
 	}
 }
