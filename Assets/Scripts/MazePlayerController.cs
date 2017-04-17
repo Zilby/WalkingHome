@@ -6,6 +6,7 @@ using UnityEngine;
 public class MazePlayerController : PlayerController {
 	//public float moveSpeed;
 
+	public GameObject collider;
 	private float xDir;
 	private float yDir;
 
@@ -35,8 +36,8 @@ public class MazePlayerController : PlayerController {
 	}
 
 	private void MovePlayer(float horizontal, float vertical) {
-		transform.position = new Vector3 (transform.position.x + (horizontal * moveSpeed), 
-			transform.position.y + (vertical * moveSpeed), transform.position.z);
+		collider.transform.position = new Vector3 (collider.transform.position.x + (horizontal * moveSpeed), 
+			collider.transform.position.y, collider.transform.position.z  + (vertical * moveSpeed));
 		// determine animation displayed TODO vertical animations?
 		if (Mathf.Abs (horizontal) >= 0.1 || Mathf.Abs (vertical) >= 0.1) {
 			// walking animation for horizontal direction
