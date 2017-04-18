@@ -29,7 +29,7 @@ public class EnemyController : MonoBehaviour {
     }
 
 	void WaypointMove() {
-		if (Vector3.Distance(transform.position, waypoints [cur].position) > 0.01f) {
+		if (Vector3.Distance(transform.position, waypoints [cur].position) > 0.02f) {
 			transform.position = Vector3.MoveTowards (transform.position, end, moveSpeed * Time.deltaTime);
 			end = Vector3.MoveTowards (end, transform.position, moveSpeed * -1.0f * Time.deltaTime);
 		}
@@ -37,10 +37,12 @@ public class EnemyController : MonoBehaviour {
 		else { 
 			cur = (cur + 1) % waypoints.Length;
 			end = waypoints [cur].position;
-			if (end.x < transform.position.x) {
-				sr.flipX = true;
-			} else {
-				sr.flipX = false;
+			if (sr) {
+				if (end.x < transform.position.x) {
+					sr.flipX = true;
+				} else {
+					sr.flipX = false;
+				}
 			}
 		}
 	}
