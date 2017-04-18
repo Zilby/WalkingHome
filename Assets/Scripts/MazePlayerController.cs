@@ -8,6 +8,7 @@ public class MazePlayerController : PlayerController {
 
 	public GameObject collider;
 	public GameObject thought;
+	public List<GameObject> initialThoughts;
 	private float xDir;
 	private float yDir;
 
@@ -19,6 +20,7 @@ public class MazePlayerController : PlayerController {
 		xDir = yDir = 0;
 		orig = sr.sprite;
 		characterPause = false;
+		StartCoroutine (InitialThoughts ());
 	}
 
 	// Update is called once per frame
@@ -69,5 +71,14 @@ public class MazePlayerController : PlayerController {
 		thought.SetActive (true);
 		yield return new WaitForSeconds (4f);
 		thought.SetActive (true);
+	}
+
+	public IEnumerator InitialThoughts() {
+		yield return new WaitForSeconds (1f);
+		foreach (GameObject g in initialThoughts) {
+			g.SetActive (true);
+			yield return new WaitForSeconds (3.5f);
+			g.SetActive (false);
+		}
 	}
 }

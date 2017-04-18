@@ -7,6 +7,7 @@ public class EnemyController : MonoBehaviour {
 
 	public Transform[] waypoints; // array of points for the enemy to move between
 	public GameObject comment;
+	public List<GameObject> responses;
 	public SpriteRenderer sr;
 	private int cur = 0;
 	private Vector3 end;
@@ -65,6 +66,10 @@ public class EnemyController : MonoBehaviour {
 			GameController.paranoia += 10;
 			yield return new WaitForSeconds (3.0f);
 			comment.SetActive (false);
+			GameObject r = responses [Random.Range (0, responses.Count)];
+			r.SetActive (true);
+			yield return new WaitForSeconds (3.0f);
+			r.SetActive (false);
 		}
 	}
 }

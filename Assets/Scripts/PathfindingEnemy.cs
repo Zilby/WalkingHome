@@ -52,6 +52,7 @@ public class PathfindingEnemy : MonoBehaviour
 	void OnCollisionEnter (Collision col) {
 		if (col.gameObject.tag == "hero") {
 			GameController.paranoia += 20;
+			GameController.confidence -= 5;
 			transform.position = startPos;
 		}
 	} 
@@ -63,6 +64,8 @@ public class PathfindingEnemy : MonoBehaviour
 		if (city) {
 			stop = true;
 			GameController.paranoia += 20;
+			GameController.frustration += 25;
+			GameController.confidence -= 10;
 			sr.gameObject.GetComponent<Animator> ().enabled = false;
 		}
 	}
