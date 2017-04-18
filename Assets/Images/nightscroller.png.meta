@@ -1,9 +1,11 @@
 fileFormatVersion: 2
 guid: 19135af96dd06904a9af3df5ad766a87
-timeCreated: 1492485666
+timeCreated: 1492555599
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: nightscroller_0
+    21300002: nightscroller_1
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -68,7 +70,33 @@ TextureImporter:
     overridden: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: nightscroller_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 7731
+        height: 3381
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: nightscroller_1
+      rect:
+        serializedVersion: 2
+        x: 8855
+        y: 21
+        width: 5538
+        height: 3360
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
     outline: []
   spritePackingTag: 
   userData: 
