@@ -19,6 +19,7 @@ public class PlayerChoice : MonoBehaviour {
 	private bool dialogueComplete;
 	List<string> conversationLines2; // lines for the conversation between two friends
 	private int convoIndex2 = 0;
+	private bool first;
 
 	private GameObject tempBubble;
 	private Text tempText;
@@ -35,6 +36,7 @@ public class PlayerChoice : MonoBehaviour {
 		heroOrig = hero.GetComponent<SpriteRenderer> ().sprite;
 		friendOrig = friend.GetComponent<SpriteRenderer> ().sprite;
 		dialogueComplete = false;
+		first = true;
 
 		conversationLines2 = new List<string> ();
 		conversationLines2.Add ("Are you getting a call?"); // rachel
@@ -62,14 +64,20 @@ public class PlayerChoice : MonoBehaviour {
 			friend.GetComponent<SpriteRenderer> ().flipX = true;
 			friend.GetComponent<Animator> ().enabled = true;
 			friend.transform.position = Vector2.MoveTowards (friend.transform.position, new Vector2(friend.transform.position.x  - 12.5f, friend.transform.position.y), 0.1f);
+			if (first) {
+				first = false;
+				StartCoroutine (OnMyOwn ());
+			}
 		}
 	}
 
 	void OnTriggerEnter2D (Collider2D col) {
-		p.CharacterPause = true;
-		hero.GetComponent<Animator> ().enabled = false;
-		hero.GetComponent<SpriteRenderer> ().sprite = heroOrig;
-		StartCoroutine ("DialogueOptions");
+		if (first) {
+			p.CharacterPause = true;
+			hero.GetComponent<Animator> ().enabled = false;
+			hero.GetComponent<SpriteRenderer> ().sprite = heroOrig;
+			StartCoroutine ("DialogueOptions");
+		}
 	}
 
 	public IEnumerator DialogueOptions () {
@@ -142,15 +150,19 @@ public class PlayerChoice : MonoBehaviour {
 		friendText.enabled = false;
 		friendBubble.SetActive (false);
 
+		p.CharacterPause = false;
+		dialogueComplete = true;
+	}
+
+	public IEnumerator OnMyOwn() {
+		yield return new WaitForSeconds (0.8f);
+
 		thoughtBubble.SetActive (true);
 		thoughtText.enabled = true;
 		thoughtText.text = "I guess I'm on my own then...";
 		yield return new WaitForSeconds (2.0f);
 		thoughtBubble.SetActive (false);
 		thoughtText.enabled = false;
-
-		p.CharacterPause = false;
-		dialogueComplete = true;
 	}
 }
 

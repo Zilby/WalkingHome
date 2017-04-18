@@ -33,20 +33,11 @@ public class ThoughtsController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		
 	}
 
 	public IEnumerator EdgelordThoughts() {
-		thoughtBubble.SetActive (true);
-		text.enabled = true;
-
-		while (edgyIndex < edgyThoughts.Count) {
-			text.text = edgyThoughts [edgyIndex];
-			yield return new WaitForSeconds (2.0f);
-			edgyIndex += 1;
-		}
-
-		text.enabled = false;
-		thoughtBubble.SetActive (false);
+		player.GetComponent<Animator> ().enabled = false;
 		catcall.SetActive (true); 
 		yield return new WaitForSeconds (5.0f);
 		catcall.SetActive (false);
@@ -55,7 +46,21 @@ public class ThoughtsController : MonoBehaviour {
 		GameController.confidence -= 1;
 		frustration.SetActive (true);
 		paranoia.SetActive (true);
+
+		thoughtBubble.SetActive (true);
+		text.enabled = true;
+
 		player.GetComponent<PlayerController> ().CharacterPause = false;
+		player.GetComponent<Animator> ().enabled = false;
+
+		while (edgyIndex < edgyThoughts.Count) {
+			text.text = edgyThoughts [edgyIndex];
+			yield return new WaitForSeconds (2.5f);
+			edgyIndex += 1;
+		}
+
+		text.enabled = false;
+		thoughtBubble.SetActive (false);
 	}
 		
 }
