@@ -11,8 +11,10 @@ public class ThoughtsController : MonoBehaviour {
 	public GameObject frustration;
 	public GameObject paranoia;
 	private Text text; // the thought to be displayed
-	List<string> edgyThoughts;
-	int edgyIndex;
+	private List<string> edgyThoughts;
+	private int edgyIndex;
+	private bool catCallDone;
+	private Sprite heroOrig;
 
 	// Use this for initialization
 	void Start () {
@@ -28,30 +30,40 @@ public class ThoughtsController : MonoBehaviour {
 		edgyThoughts.Add ("God, this is exactly why I hate Manhattan."); 
 		edgyThoughts.Add ("I’m just gonna keep my head down and walk fast.");
 		edgyThoughts.Add ("Penn Station can’t be too far away.");
-
+		catCallDone = true;
+		heroOrig = player.GetComponent<SpriteRenderer> ().sprite;
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-		
+		if (!catCallDone) {
+			player.GetComponent<Animator> ().enabled = false;
+			player.GetComponent<SpriteRenderer> ().sprite = heroOrig;
+		}
 	}
 
 	public IEnumerator EdgelordThoughts() {
-		player.GetComponent<Animator> ().enabled = false;
+		yield return new WaitForSeconds (0.000001f);
+		catCallDone = false;
+
 		catcall.SetActive (true); 
 		yield return new WaitForSeconds (5.0f);
 		catcall.SetActive (false);
-		GameController.frustration += 5;
-		GameController.paranoia += 2;
-		GameController.confidence -= 1;
+
+		catCallDone = true;
+
+		GameController.frustration += 50;
+		GameController.paranoia += 20;
+		GameController.confidence -= 10;
 		frustration.SetActive (true);
 		paranoia.SetActive (true);
 
-		thoughtBubble.SetActive (true);
-		text.enabled = true;
 
 		player.GetComponent<PlayerController> ().CharacterPause = false;
-		player.GetComponent<Animator> ().enabled = false;
+		// player.GetComponent<Animator> ().enabled = true;
+
+		thoughtBubble.SetActive (true);
+		text.enabled = true;
 
 		while (edgyIndex < edgyThoughts.Count) {
 			text.text = edgyThoughts [edgyIndex];

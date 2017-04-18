@@ -77,8 +77,7 @@ public class PlayerChoice : MonoBehaviour {
 		if (dialogueComplete) {
 			hero.GetComponent<Animator> ().enabled = true;
 			friend.GetComponent<SpriteRenderer> ().flipX = true;
-			// friend.GetComponent<Animator> ().enabled = true; TODO
-			fixAnim = true;
+			friend.GetComponent<Animator> ().enabled = true;
 			friend.transform.position = Vector2.MoveTowards (friend.transform.position, new Vector2(friend.transform.position.x  - 12.5f, friend.transform.position.y), 0.1f);
 			if (first) {
 				first = false;

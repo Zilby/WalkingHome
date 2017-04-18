@@ -16,7 +16,7 @@ public class GameController : MonoBehaviour {
 
 	public void Start() {
 		paranoia = 0; // initializes paranoia to min
-		confidence = 10; // initializes confidence to max
+		confidence = 100; // initializes confidence to max
 		frustration = 0; // initializes frustration to min
 	}
 
@@ -26,7 +26,6 @@ public class GameController : MonoBehaviour {
 	}
 
 	void Update() {
-		// Time.timeScale = 6.0f;
 		string s = SceneManager.GetActiveScene ().name;
 		if (s == "Scroller" || s == "Scroller3" || s == "Maze" || s == "City" || s == "Maze2") {
 			stats.SetActive (true);

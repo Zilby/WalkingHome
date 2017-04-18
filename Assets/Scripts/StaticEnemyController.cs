@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿	using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,9 +20,9 @@ public class StaticEnemyController : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other)
 	{
 		if (first) {
-			other.GetComponent<Animator> ().enabled = false;
-			hero.GetComponent<SpriteRenderer> ().sprite = spr;
 			player.CharacterPause = true; // sets the hero to pause
+			player.stopAnimation ();
+			hero.GetComponent<SpriteRenderer> ().sprite = spr;
 			StartCoroutine(thoughts.EdgelordThoughts());
 			first = false;
 		}
