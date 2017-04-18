@@ -20,12 +20,16 @@ public class PlayerChoice : MonoBehaviour {
 	List<string> conversationLines2; // lines for the conversation between two friends
 	private int convoIndex2 = 0;
 	private bool first;
+	public static bool fixAnim;
 
 	private GameObject tempBubble;
 	private Text tempText;
 
 	public GameObject thoughtBubble;
 	public Text thoughtText;
+
+	public GameObject optionOne;
+	public GameObject optionTwo;
 
 	// Use this for initialization
 	void Start () {
@@ -46,15 +50,26 @@ public class PlayerChoice : MonoBehaviour {
 		conversationLines2.Add ("Oh my God, I totally forgot. I'm so sorry!"); // friend 1
 		conversationLines2.Add ("Ummm, I can probably be there in like fifteen minutes. Would that work?"); // friend 1
 		conversationLines2.Add ("Great! I'll see you then."); // friend 1
-		conversationLines2.Add ("Dude, I'm so sorry but I've got to go. I totally forgot I made plans to meet up with Jack. Do you remember him? From high school?"); // friend 1
+		conversationLines2.Add ("Dude, I'm so sorry but I've got to go."); // friend 1
+		conversationLines2.Add ("I totally forgot I made plans to meet up with Jack."); // friend 1
+		conversationLines2.Add ("Do you remember him? From high school?"); // friend 1
 		conversationLines2.Add ("I mean, yeah, high school wasn't so long ago. You have to go right now?"); // rachel
-		conversationLines2.Add ("I really do, our plans started thirty minutes ago. I know you're rarely in Manhattan, but you'll be okay, right?"); // friend 1
-		conversationLines2.Add ("I mean, I don't live here... And I have no idea how to get to Penn Station... Plus my phone is running on really low battery..."); // rachel
-		conversationLines2.Add ("It's just a few blocks away. And I really, really have to go. Tell me you'll be okay, please!"); // friend 1
+		conversationLines2.Add ("I really do, our plans started thirty minutes ago."); // friend 1
+		conversationLines2.Add ("I know you're rarely in Manhattan, but you'll be okay, right?"); // friend 1
+		conversationLines2.Add ("I mean, I don't live here..."); // rachel
+		conversationLines2.Add ("And I have no idea how to get to Penn Station..."); // rachel
+		conversationLines2.Add ("Plus my phone is running on really low battery..."); // rachel
+		conversationLines2.Add ("It's just a few blocks away."); // friend 1
+		conversationLines2.Add ("And I really, really have to go."); // friend 1
+		conversationLines2.Add ("Tell me you'll be okay, please!"); // friend 1
 
 		// dialogue option (rachel)
 
-		conversationLines2.Add ("Like I said, you’ll be fine, I swear! Just look for 8th and West 31st! Call me if you need anything. Bye, girl!"); // friend 1, end cutscene
+		conversationLines2.Add ("Like I said, you’ll be fine, I swear!"); // friend 1
+		conversationLines2.Add ("Just look for 8th and West 31st!"); // friend 1
+		conversationLines2.Add ("Call me if you need anything. Bye, girl!"); // friend 1, end cutscene
+
+		fixAnim = false;
 	}
 	
 	// Update is called once per frame
@@ -62,7 +77,8 @@ public class PlayerChoice : MonoBehaviour {
 		if (dialogueComplete) {
 			hero.GetComponent<Animator> ().enabled = true;
 			friend.GetComponent<SpriteRenderer> ().flipX = true;
-			friend.GetComponent<Animator> ().enabled = true;
+			// friend.GetComponent<Animator> ().enabled = true; TODO
+			fixAnim = true;
 			friend.transform.position = Vector2.MoveTowards (friend.transform.position, new Vector2(friend.transform.position.x  - 12.5f, friend.transform.position.y), 0.1f);
 			if (first) {
 				first = false;
@@ -75,7 +91,9 @@ public class PlayerChoice : MonoBehaviour {
 		if (first) {
 			p.CharacterPause = true;
 			hero.GetComponent<Animator> ().enabled = false;
+			friend.GetComponent<Animator> ().enabled = false;
 			hero.GetComponent<SpriteRenderer> ().sprite = heroOrig;
+			friend.GetComponent<SpriteRenderer> ().sprite = friendOrig;
 			StartCoroutine ("DialogueOptions");
 		}
 	}
@@ -83,7 +101,7 @@ public class PlayerChoice : MonoBehaviour {
 	public IEnumerator DialogueOptions () {
 		
 		yield return new WaitForSeconds (0.01f);
-		while (convoIndex2 < conversationLines2.Count - 1) {
+		while (convoIndex2 < conversationLines2.Count - 3) {
 			if (convoIndex2 == 0) {
 				tempText = text;
 				tempBubble = speaking;
@@ -91,23 +109,23 @@ public class PlayerChoice : MonoBehaviour {
 				tempText = friendText;
 				tempBubble = friendBubble;
 				friend.GetComponent<SpriteRenderer> ().sprite = friendWithPhone;
-			} else if (convoIndex2 < 7) {
-				tempText = friendText;
-				tempBubble = friendBubble;
 			} else if (convoIndex2 == 7) {
 				tempText = friendText;
 				tempBubble = friendBubble;
 				friend.GetComponent<SpriteRenderer> ().sprite = friendOrig;
-			} else if (convoIndex2 == 8) {
-				tempText = text;
-				tempBubble = speaking;
-			} else if (convoIndex2 == 9) {
+			} else if (convoIndex2 < 9) {
 				tempText = friendText;
 				tempBubble = friendBubble;
 			} else if (convoIndex2 == 10) {
 				tempText = text;
 				tempBubble = speaking;
-			} else if (convoIndex2 == 11) {
+			} else if (convoIndex2 <= 12) {
+				tempText = friendText;
+				tempBubble = friendBubble;
+			} else if (convoIndex2 <= 15) {
+				tempText = text;
+				tempBubble = speaking;
+			} else if (convoIndex2 <= 18) {
 				tempText = friendText;
 				tempBubble = friendBubble;
 			}
@@ -123,17 +141,25 @@ public class PlayerChoice : MonoBehaviour {
 		}
 
 		thinking.SetActive(true);
+		optionOne.SetActive(true);
+		optionTwo.SetActive (true);
+		optionOne.GetComponent<Text> ().text = "Err";
+		optionTwo.GetComponent<Text> ().text = "Yup";
 		hero.GetComponent<Animator> ().enabled = false;
 		hero.GetComponent<SpriteRenderer> ().sprite = heroOrig;
 
-		while (text.text != "Option one" && text.text != ("Option two")) {
+		while (text.text != "Err" && text.text != ("Yup")) {
 			yield return new WaitForSeconds (.01f);
 			if (Input.GetKeyDown ("1")) {
 				thinking.SetActive(false);
-				text.text = "Option one";
+				optionOne.SetActive(false);
+				optionTwo.SetActive(false);
+				text.text = "Err";
 			} else if (Input.GetKeyDown ("2")) {
 				thinking.SetActive(false);
-				text.text = "Option two";
+				optionOne.SetActive(false);
+				optionTwo.SetActive(false);
+				text.text = "Yup";
 			}
 		}
 
@@ -143,13 +169,17 @@ public class PlayerChoice : MonoBehaviour {
 		speaking.SetActive(false);
 		text.enabled = false;
 
-		friendText.text = conversationLines2 [conversationLines2.Count - 1];
-		friendText.enabled = true;
-		friendBubble.SetActive (true);
-		yield return new WaitForSeconds (2.0f);
-		friendText.enabled = false;
-		friendBubble.SetActive (false);
+		while (convoIndex2 < conversationLines2.Count) {
+			friendText.text = conversationLines2 [convoIndex2];
+			friendText.enabled = true;
+			friendBubble.SetActive (true);
+			yield return new WaitForSeconds (2.0f);
+			friendText.enabled = false;
+			friendBubble.SetActive (false);
+			convoIndex2 += 1;
+		}
 
+		fixAnim = true;
 		p.CharacterPause = false;
 		dialogueComplete = true;
 	}

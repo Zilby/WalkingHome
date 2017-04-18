@@ -77,14 +77,15 @@ public class Friend : MonoBehaviour {
 	void Update () {
 		if (!cutBool) {
 			if (!stopWalking) {
+				GetComponent<Animator> ().enabled = true;
 				hero.transform.position = Vector2.MoveTowards ((Vector2)hero.transform.position, new Vector2 (hero.transform.position.x + 12.5f, hero.transform.position.y), 0.1f);
 				otherFriend.transform.position = Vector2.MoveTowards ((Vector2)otherFriend.transform.position, new Vector2 (otherFriend.transform.position.x + 12.5f, otherFriend.transform.position.y), 0.1f);
 				// gameObject.transform.position = Vector2.MoveTowards ((Vector2)gameObject.transform.position, new Vector2 (gameObject.transform.position.x + 12.5f, gameObject.transform.position.y), 0.1f);
 			} else if (stopWalking) {
 				hero.GetComponent<Animator> ().enabled = false;
 				hero.GetComponent<SpriteRenderer> ().sprite = heroOrig;
-				gameObject.GetComponent<Animator> ().enabled = false;
-				gameObject.GetComponent<SpriteRenderer> ().sprite = friendOrig;
+				GetComponent<Animator> ().enabled = false;
+				GetComponent<SpriteRenderer> ().sprite = friendOrig;
 				otherFriend.GetComponent<Animator> ().enabled = false;
 				otherFriend.GetComponent<SpriteRenderer> ().sprite = otherFriendOrig;
 			}
