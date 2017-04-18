@@ -16,10 +16,10 @@ public class StaticEnemyController : MonoBehaviour {
 	// function for when the hero collides with this enemy
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		if(first) {
+		if (first) {
 			player.CharacterPause = true; // sets the hero to pause
-			StartCoroutine(thoughts.EdgelordThoughts());
 			other.GetComponent<PlayerController>().stopAnimation (); // stops the animation of the hero
+			StartCoroutine(thoughts.EdgelordThoughts());
 			first = false;
 		}
 	}
