@@ -27,7 +27,7 @@ public class GameController : MonoBehaviour {
 
 	void Update() {
 		string s = SceneManager.GetActiveScene ().name;
-		if (s == "Scroller" || s == "Scroller3" || s == "Maze" || s == "City" || s == "Maze2") {
+		if (s == "Scroller" || s == "Scroller3" || s == "Maze" || s == "City" || s == "Maze2" || s == "EndScroller") {
 			stats.SetActive (true);
 		} else {
 			stats.SetActive (false);
