@@ -1,12 +1,12 @@
 fileFormatVersion: 2
-guid: bfc85ec66cb8a45a098efe4ec5138866
-timeCreated: 1492477355
+guid: 5e06b83288b7c4d7a9f2b26e6e1ffc4c
+timeCreated: 1492486298
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: boy-3_0
-    21300002: boy-3_1
-    21300004: boy-3_2
+    21300000: dude2walking_0
+    21300002: dude2walking_1
+    21300004: dude2walking_2
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -121,42 +121,42 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: boy-3_0
+      name: dude2walking_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 36
-        width: 707
-        height: 2432
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: boy-3_1
-      rect:
-        serializedVersion: 2
-        x: 1215
-        y: 58
-        width: 629
-        height: 2024
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: boy-3_2
-      rect:
-        serializedVersion: 2
-        x: 2387
         y: 0
-        width: 702
-        height: 2467
+        width: 633
+        height: 1975
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 93, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: dude2walking_1
+      rect:
+        serializedVersion: 2
+        x: 628
+        y: 0
+        width: 706
+        height: 1970
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: dude2walking_2
+      rect:
+        serializedVersion: 2
+        x: 1300
+        y: 0
+        width: 650.66675
+        height: 1975
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 129, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     outline: []

@@ -1,12 +1,12 @@
 fileFormatVersion: 2
-guid: bfc85ec66cb8a45a098efe4ec5138866
-timeCreated: 1492477355
+guid: f4b6fee0019f94c7490ed269da683dfe
+timeCreated: 1492490176
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: boy-3_0
-    21300002: boy-3_1
-    21300004: boy-3_2
+    21300000: dude4walking_0
+    21300002: dude4walking_1
+    21300004: dude4walking_2
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -121,39 +121,39 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: boy-3_0
+      name: dude4walking_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 36
-        width: 707
-        height: 2432
+        y: 9
+        width: 657
+        height: 2412
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: boy-3_1
+      name: dude4walking_1
       rect:
         serializedVersion: 2
-        x: 1215
-        y: 58
-        width: 629
-        height: 2024
+        x: 779
+        y: 17
+        width: 835
+        height: 2390
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: boy-3_2
+      name: dude4walking_2
       rect:
         serializedVersion: 2
-        x: 2387
+        x: 1711
         y: 0
-        width: 702
-        height: 2467
+        width: 606
+        height: 2402
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

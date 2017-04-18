@@ -1,12 +1,12 @@
 fileFormatVersion: 2
-guid: bfc85ec66cb8a45a098efe4ec5138866
-timeCreated: 1492477355
+guid: 0a5a564d75af8498ebb6b7209b68bd66
+timeCreated: 1492484890
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: boy-3_0
-    21300002: boy-3_1
-    21300004: boy-3_2
+    21300000: dudewalking (1)_0
+    21300002: dudewalking (1)_1
+    21300004: dudewalking (1)_2
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -121,42 +121,42 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: boy-3_0
+      name: dudewalking (1)_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 36
-        width: 707
-        height: 2432
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: boy-3_1
-      rect:
-        serializedVersion: 2
-        x: 1215
-        y: 58
-        width: 629
-        height: 2024
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: boy-3_2
-      rect:
-        serializedVersion: 2
-        x: 2387
         y: 0
-        width: 702
-        height: 2467
+        width: 823
+        height: 2275
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 127, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: dudewalking (1)_1
+      rect:
+        serializedVersion: 2
+        x: 679
+        y: 0
+        width: 1014
+        height: 2252
+      alignment: 9
+      pivot: {x: 0.54048795, y: 0.52267563}
+      border: {x: 154, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: dudewalking (1)_2
+      rect:
+        serializedVersion: 2
+        x: 1646
+        y: 0
+        width: 823
+        height: 2275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 173, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     outline: []

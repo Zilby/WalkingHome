@@ -1,12 +1,11 @@
 fileFormatVersion: 2
-guid: bfc85ec66cb8a45a098efe4ec5138866
-timeCreated: 1492477355
+guid: d112891fce70041d482531451c5970f6
+timeCreated: 1492490472
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: boy-3_0
-    21300002: boy-3_1
-    21300004: boy-3_2
+    21300000: streetsigns_0
+    21300002: streetsigns_1
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -121,39 +120,26 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: boy-3_0
+      name: streetsigns_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 36
-        width: 707
-        height: 2432
+        y: 131
+        width: 602
+        height: 942
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: boy-3_1
+      name: streetsigns_1
       rect:
         serializedVersion: 2
-        x: 1215
-        y: 58
-        width: 629
-        height: 2024
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: boy-3_2
-      rect:
-        serializedVersion: 2
-        x: 2387
+        x: 1020
         y: 0
-        width: 702
-        height: 2467
+        width: 603
+        height: 943
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

@@ -7,6 +7,7 @@ public class EnemyController : MonoBehaviour {
 
 	public Transform[] waypoints; // array of points for the enemy to move between
 	public GameObject comment;
+	public SpriteRenderer sr;
 	private int cur = 0;
 	private Vector3 end;
 
@@ -15,12 +16,16 @@ public class EnemyController : MonoBehaviour {
 
     // Use this for initialization
 	void Start () {
-		end = waypoints [cur].position;
+		if (waypoints.Length > 0) {
+			end = waypoints [cur].position;
+		}
     }
 
     // Update is called once per frame
     void FixedUpdate () {
-		WaypointMove ();
+		if (waypoints.Length > 0) {
+			WaypointMove ();
+		}
     }
 
 	void WaypointMove() {
@@ -32,6 +37,11 @@ public class EnemyController : MonoBehaviour {
 		else { 
 			cur = (cur + 1) % waypoints.Length;
 			end = waypoints [cur].position;
+			if (end.x < transform.position.x) {
+				sr.flipX = true;
+			} else {
+				sr.flipX = false;
+			}
 		}
 	}
 		

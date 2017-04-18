@@ -7,6 +7,7 @@ public class MazePlayerController : PlayerController {
 	//public float moveSpeed;
 
 	public GameObject collider;
+	public GameObject thought;
 	private float xDir;
 	private float yDir;
 
@@ -62,5 +63,11 @@ public class MazePlayerController : PlayerController {
 		characterPause = true;
 		yield return new WaitForSeconds (0.4f);
 		characterPause = false;
+	}
+
+	public IEnumerator Think() {
+		thought.SetActive (true);
+		yield return new WaitForSeconds (4f);
+		thought.SetActive (true);
 	}
 }
