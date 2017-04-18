@@ -34,6 +34,10 @@ public class ScreenFlashController : MonoBehaviour {
 		screenFilter.color = newColor;
 
 		if (counter >= 85) {
+			GameController.frustration -= 25;
+			if (GameController.frustration < 0) {
+				GameController.frustration = 0;
+			}
 			SceneManager.LoadScene (scene);
 		}
 	}

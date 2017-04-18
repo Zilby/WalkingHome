@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
@@ -11,6 +12,7 @@ public class GameController : MonoBehaviour {
 	public Slider fSlider;
 	public Slider pSlider;
 	public Slider cSlider;
+	public GameObject stats;
 
 	public void Start() {
 		paranoia = 0; // initializes paranoia to min
@@ -24,6 +26,14 @@ public class GameController : MonoBehaviour {
 	}
 
 	void Update() {
+		Time.timeScale = 6.0f;
+		string s = SceneManager.GetActiveScene ().name;
+		if (s == "Scroller" || s == "Scroller3" || s == "Maze" || s == "City" || s == "Maze2") {
+			stats.SetActive (true);
+		} else {
+			stats.SetActive (false);
+		}
+
 		fSlider.value = frustration;
 		pSlider.value = paranoia;
 		cSlider.value = confidence;

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 0a5a564d75af8498ebb6b7209b68bd66
-timeCreated: 1492484890
+timeCreated: 1492494675
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -126,37 +126,37 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 823
+        width: 690
         height: 2275
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 127, w: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
       name: dudewalking (1)_1
       rect:
         serializedVersion: 2
-        x: 679
+        x: 828
         y: 0
-        width: 1014
-        height: 2252
+        width: 865
+        height: 2275
       alignment: 9
       pivot: {x: 0.54048795, y: 0.52267563}
-      border: {x: 154, y: 0, z: 0, w: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
       name: dudewalking (1)_2
       rect:
         serializedVersion: 2
-        x: 1646
+        x: 1813
         y: 0
-        width: 823
+        width: 656
         height: 2275
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 173, y: 0, z: 0, w: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     outline: []
