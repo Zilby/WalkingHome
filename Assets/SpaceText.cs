@@ -25,9 +25,9 @@ public class SpaceText : MonoBehaviour {
 
 		if (wordIndex >= endWords.Count + 1) {
 			if (SceneManager.GetActiveScene().name.Equals("OpenerText")) {
-				SceneManager.LoadSceneAsync ("Scroller");
+				SceneManager.LoadScene ("Scroller");
 			} else if (SceneManager.GetActiveScene().name.Equals("CreditsTransition")) {
-				SceneManager.LoadSceneAsync ("Credits");
+				SceneManager.LoadScene ("Credits");
 			}
 		}
 

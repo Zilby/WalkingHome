@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour {
 	protected Sprite friendOrig;
 
     public float moveSpeed; // determines the moveSpeed of the hero
+	public List<GameObject> initialThoughts;
+
 
 
 	protected int counter = 0; // used to modify meters
@@ -46,6 +48,7 @@ public class PlayerController : MonoBehaviour {
 			hero.constraints = RigidbodyConstraints2D.None;
 			hero.constraints = RigidbodyConstraints2D.FreezeRotation;
 		}
+		StartCoroutine (InitialThoughts ());
 	}
 	
 	// Update is called once per frame
@@ -117,6 +120,15 @@ public class PlayerController : MonoBehaviour {
 		anim.enabled = false;
 		if (friendAnim != null && !PlayerChoice.fixAnim) {
 			friendAnim.enabled = false;
+		}
+	}
+
+	public IEnumerator InitialThoughts() {
+		yield return new WaitForSeconds (1f);
+		foreach (GameObject g in initialThoughts) {
+			g.SetActive (true);
+			yield return new WaitForSeconds (3.5f);
+			g.SetActive (false);
 		}
 	}
 
