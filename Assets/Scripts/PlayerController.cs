@@ -62,16 +62,16 @@ public class PlayerController : MonoBehaviour {
 		if (horizontal < 0) {
 			// face left
 			sr.flipX = true;
-			//if (friendRend != null) {
-			//	friendRend.flipX = true;
-			//}
+			if (friend != null) {
+				friend.GetComponent<SpriteRenderer> ().flipX = true;
+			}
 		}
 		if (horizontal > 0) {
 			// face right
 			sr.flipX = false;
-			//if (friendRend != null) {
-			//	friendRend.flipX = false;
-			//}
+			if (friend != null) {
+				friend.GetComponent<SpriteRenderer> ().flipX = false;
+			}
 		}
 
 		// determine animation displayed TODO vertical animations?
