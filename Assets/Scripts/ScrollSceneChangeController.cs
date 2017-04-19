@@ -23,7 +23,11 @@ public class ScrollSceneChangeController : MonoBehaviour {
 	void MakeScene() {
 		if (heroColl.IsTouching (sceneColl)) {
 			GameController.frustration -= 2;
-			SceneManager.LoadSceneAsync ("CityTransition"); // loads the next level
+			if (SceneManager.GetActiveScene ().name.Equals ("Scroller")) {
+				SceneManager.LoadSceneAsync ("CityTransition"); // loads the next level
+			} else if (SceneManager.GetActiveScene ().name.Equals ("EndScroller")) {
+				SceneManager.LoadSceneAsync ("CreditsTransition");
+			}
 		}
 	}
 }
