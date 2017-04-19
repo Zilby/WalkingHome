@@ -11,7 +11,7 @@ public class BystanderMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (transform.position.x >= 0.0f) {
+		if (transform.position.x >= -50.0f) {
 			transform.position = new Vector3 (transform.position.x - 0.05f, transform.position.y, transform.position.z);
 		} else {
 			Destroy (gameObject);

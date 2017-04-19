@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
 
@@ -41,6 +42,10 @@ public class PlayerController : MonoBehaviour {
 		//if (friendRend != null) {
 		//	friendOrig = friendRend.sprite;
 		//}
+		if (SceneManager.GetActiveScene().name.Equals("EndScroller")) {
+			hero.constraints = RigidbodyConstraints2D.None;
+			hero.constraints = RigidbodyConstraints2D.FreezeRotation;
+		}
 	}
 	
 	// Update is called once per frame
