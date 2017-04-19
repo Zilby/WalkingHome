@@ -10,7 +10,7 @@ public class ScrollSceneChangeController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		heroColl = GameObject.FindGameObjectWithTag ("hero").GetComponent<Collider2D> (); // gets the hero's collider
+		//heroColl = GameObject.FindGameObjectWithTag ("hero").GetComponent<Collider2D> (); // gets the hero's collider
 		sceneColl = GetComponent<Collider2D> (); // gets the scene changing collider
 	}
 	
