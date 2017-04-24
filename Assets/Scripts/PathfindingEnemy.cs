@@ -22,7 +22,7 @@ public class PathfindingEnemy : MonoBehaviour
 
 	void Update () {
 		if (!stop) {
-			transform.GetComponent<UnityEngine.AI.NavMeshAgent> ().destination = hero.transform.position;﻿
+			transform.GetComponent<UnityEngine.AI.NavMeshAgent> ().destination = new Vector3(hero.transform.position.x, hero.transform.position.y, hero.transform.position.z - 0.2f);﻿
 			if (city) {
 				transform.position = new Vector3 (transform.position.x, y, transform.position.z);
 			}
@@ -67,6 +67,7 @@ public class PathfindingEnemy : MonoBehaviour
 			GameController.frustration += 25;
 			GameController.confidence -= 10;
 			sr.gameObject.GetComponent<Animator> ().enabled = false;
+			gameObject.GetComponent<UnityEngine.AI.NavMeshAgent> ().enabled = false;
 		}
 	}
 		
