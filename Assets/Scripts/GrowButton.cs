@@ -5,12 +5,12 @@ using UnityEngine;
 public class GrowButton : MonoBehaviour {
 
 	private bool grow;
-	private float xvel, yvel;
+	//private float xvel, yvel;
 
 	public void Start()
 	{
 		grow = false;
-		xvel = yvel = 0.0f;
+		//xvel = yvel = 0.0f;
 	}
 
 	public void Update()

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LegitEnemyController : EnemyController {
 	private bool first;
-	public GameObject comment;
+	// public GameObject comment;
 	private MazePlayerController player;
 
 	void Start() {

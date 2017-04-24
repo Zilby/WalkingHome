@@ -42,8 +42,10 @@ public class DialogueOption : MonoBehaviour {
 		thinking.SetActive (true); // display the thought bubble
 		optionOne.SetActive (true); // display the 1 key
 		optionTwo.SetActive (true); // display the 2 key
-		optionOneText.GetComponent<Text>().text = "I'll keep walking"; // retitle options
-		optionTwoText.GetComponent<Text>().text = "I won't let this slide"; // retitle options
+		optionOneText.SetActive (true); // display the first option 
+		optionTwoText.SetActive (true); // display the second option
+		optionOneText.GetComponent<Text> ().text = "I'll keep walking"; // retitle options
+		optionTwoText.GetComponent<Text> ().text = "I won't let this slide"; // retitle options
 		hero.GetComponent<Animator> ().enabled = false; // stop hero's walking
 		hero.GetComponent<SpriteRenderer> ().sprite = heroOrig; // reset hero's sprite
 
@@ -56,7 +58,7 @@ public class DialogueOption : MonoBehaviour {
 				optionTwo.SetActive(false);
 				optionOneText.SetActive(false);
 				optionTwoText.SetActive(false);
-				speaking.GetComponent<Text> ().text = optionOneText.GetComponent<Text> ().text;
+				speaking.GetComponent<Text> ().text = optionOneText.GetComponent<Text> ().text; // TODO actually make this relevant
 				optionSelected = true;
 				StopCoroutine (PauseGame ());
 			} else if (Input.GetKeyDown ("2")) {
@@ -65,7 +67,7 @@ public class DialogueOption : MonoBehaviour {
 				optionTwo.SetActive(false);
 				optionOneText.SetActive(false);
 				optionTwoText.SetActive(false);
-				speaking.GetComponent<Text> ().text = optionTwoText.GetComponent<Text> ().text;
+				speaking.GetComponent<Text> ().text = optionTwoText.GetComponent<Text> ().text; // TODO actually make this relevant
 				optionSelected = true;
 				StopCoroutine (PauseGame ());
 			}
