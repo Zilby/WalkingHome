@@ -7,46 +7,47 @@ using UnityEngine.UI;
 // -- much love, another programming-challenged coder
 public class StatController : MonoBehaviour {
 
-	public GameObject textObj;
-	public int speed = 1;
+	public float speed = 1;
+	public int stat; 
+	public string change;
+	public bool y;
 
 	private Color textColor;
-	private float alphaVal;
-	private Vector2 initPos;
 
 	// Use this for initialization
 	void Start () {
-		textColor = new Color (0f, 0f, 0f, .5f);
+		StartCoroutine (Fade ());
 	}
 
 	void FixedUpdate () {
-		if (statChangeEvent) { // how is event handling processed
-			textObj.SetActive(true); 
-			textObj.GetComponent<Text> ().text = this.setText (1);
-			// set the text color
-			textObj.transform.position = Vector2.up * new Vector2 (.01f, .01f);
-			// fade the text
+		if(y) {
+			gameObject.transform.position = Vector3.MoveTowards (gameObject.transform.position, 
+				new Vector3 (gameObject.transform.position.x, gameObject.transform.position.y + 5, gameObject.transform.position.z), speed / 10f * Time.deltaTime);
+		} else {
+			gameObject.transform.position = Vector3.MoveTowards (gameObject.transform.position, 
+				new Vector3 (gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z + 5), speed / 10f * Time.deltaTime);
 		}
-		if (textObj.transform.position == new Vector2(initPos.x, initPos.y + .25f) || textColor.a <= 0) { // TODO determine actual position 
-			textObj.transform.position = initPos;
-			textObj.SetActive (false);
+		GetComponent<Text> ().text = change;
+		if (GetComponent<CanvasRenderer>().GetColor().a <= 0.05) { // TODO determine actual position 
+			Destroy(gameObject);
 		}
 	}
 
-	void pickColor(int statType) {
+	public void pickColor(int statType) {
 		if (statType == 0) {
 			// set color to confidence
-			textColor = new Color(86f, 185f, 255f, alphaVal);
+			GetComponent<Text> ().color = new Color(0f, 0.6f, 1f);
 		} else if (statType == 1) {
 			// set color to paranoia
-			textColor = new Color(246f, 249f, 0f, alphaVal);
+			GetComponent<Text> ().color = Color.yellow;
 		} else {
 			// set color to frustration
-			textColor = new Color(255f, 0f, 0f, alphaVal);
+			GetComponent<Text> ().color = Color.red;
 		}
 	}
 
-	string setText(int value) {
-		return value.ToString ();
+	private IEnumerator Fade() {
+		yield return new WaitForSeconds (1.5f); 
+		GetComponent<Text> ().CrossFadeAlpha (0, 1f, false);
 	}
 }

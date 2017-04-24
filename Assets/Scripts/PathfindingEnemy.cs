@@ -9,6 +9,7 @@ public class PathfindingEnemy : MonoBehaviour
 	public bool city;
 	public GameObject comment;
 	public SpriteRenderer sr;
+	public GameObject stat;
 	private bool stop;
 	private float y;
 	private Vector3 startPos;
@@ -41,6 +42,13 @@ public class PathfindingEnemy : MonoBehaviour
 			if (col.gameObject.tag == "hero") {
 				if (counter == 0) {
 					GameController.paranoia++;
+					GameObject p = Instantiate (stat);
+					p.transform.position = new Vector3 (col.gameObject.transform.position.x - 0.5f, 
+						col.gameObject.transform.position.y + 10, col.gameObject.transform.position.z + 0.5f);
+					StatController ps = p.GetComponent<StatController> ();
+					ps.change = "+1";
+					ps.pickColor (1);
+
 					counter = 80;
 				} else {
 					counter--;
@@ -53,6 +61,27 @@ public class PathfindingEnemy : MonoBehaviour
 		if (col.gameObject.tag == "hero") {
 			GameController.paranoia += 20;
 			GameController.confidence -= 5;
+
+			GameController.paranoia += 20;
+			GameController.confidence -= 10;
+
+			GameObject c = Instantiate (stat);
+			GameObject p = Instantiate (stat);
+
+			Vector3 heroPos = col.gameObject.transform.position;
+
+			c.transform.position = new Vector3 (heroPos.x + 0.25f, heroPos.y + 10, heroPos.z + 0.5f);
+			p.transform.position = new Vector3 (heroPos.x - 0.25f, heroPos.y + 10, heroPos.z + 0.5f);
+
+			StatController cs = c.GetComponent<StatController> ();
+			StatController ps = p.GetComponent<StatController> ();
+
+			cs.change = "-10";
+			ps.change = "+20";
+
+			cs.pickColor (0);
+			ps.pickColor (1);
+
 			transform.position = startPos;
 		}
 	} 
@@ -66,6 +95,29 @@ public class PathfindingEnemy : MonoBehaviour
 			GameController.paranoia += 20;
 			GameController.frustration += 25;
 			GameController.confidence -= 10;
+
+			GameObject f = Instantiate (stat);
+			GameObject c = Instantiate (stat);
+			GameObject p = Instantiate (stat);
+
+			Vector3 heroPos = col.gameObject.transform.position;
+
+			f.transform.position = new Vector3 (heroPos.x, heroPos.y + 10, heroPos.z + 0.5f);
+			c.transform.position = new Vector3 (heroPos.x + 0.5f, heroPos.y + 10, heroPos.z + 0.5f);
+			p.transform.position = new Vector3 (heroPos.x - 0.5f, heroPos.y + 10, heroPos.z + 0.5f);
+
+			StatController fs = f.GetComponent<StatController> ();
+			StatController cs = c.GetComponent<StatController> ();
+			StatController ps = p.GetComponent<StatController> ();
+
+			fs.change = "+25";
+			cs.change = "-10";
+			ps.change = "+20";
+
+			fs.pickColor (2); 
+			cs.pickColor (0);
+			ps.pickColor (1);
+
 			sr.gameObject.GetComponent<Animator> ().enabled = false;
 			gameObject.GetComponent<UnityEngine.AI.NavMeshAgent> ().enabled = false;
 		}

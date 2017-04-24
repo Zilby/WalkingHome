@@ -9,8 +9,10 @@ public class EnemyController : MonoBehaviour {
 	public GameObject comment;
 	public List<GameObject> responses;
 	public SpriteRenderer sr;
+	public GameObject stat;
 	private int cur = 0;
 	private Vector3 end;
+	private Vector3 heroPos;
 
 	[SerializeField]
 	private float moveSpeed; // reresents the movespeed of the enemy
@@ -51,6 +53,7 @@ public class EnemyController : MonoBehaviour {
 	void OnTriggerEnter(Collider col) {
 		if (col.gameObject.tag == "hero") {
 			if(comment) {
+				heroPos = col.gameObject.transform.position;
 				StartCoroutine (Catcall ());
 			} else {
 				Destroy (gameObject);
@@ -64,6 +67,28 @@ public class EnemyController : MonoBehaviour {
 			GameController.frustration += 15;
 			GameController.confidence -= 10;
 			GameController.paranoia += 10;
+
+			GameObject f = Instantiate (stat);
+			GameObject c = Instantiate (stat);
+			GameObject p = Instantiate (stat);
+
+			f.transform.position = new Vector3 (heroPos.x, heroPos.y + 10, heroPos.z + 0.5f);
+			c.transform.position = new Vector3 (heroPos.x + 0.5f, heroPos.y + 10, heroPos.z + 0.5f);
+			p.transform.position = new Vector3 (heroPos.x - 0.5f, heroPos.y + 10, heroPos.z + 0.5f);
+
+			StatController fs = f.GetComponent<StatController> ();
+			StatController cs = c.GetComponent<StatController> ();
+			StatController ps = p.GetComponent<StatController> ();
+
+			fs.change = "+15";
+			cs.change = "-10";
+			ps.change = "+10";
+
+			fs.pickColor (2); 
+			cs.pickColor (0);
+			ps.pickColor (1);
+
+
 			yield return new WaitForSeconds (3.0f);
 			comment.SetActive (false);
 			GameObject r = responses [Random.Range (0, responses.Count)];
