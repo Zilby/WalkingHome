@@ -27,9 +27,9 @@ public class ThoughtsController : MonoBehaviour {
 		edgyThoughts.Add ("Like, how was I even supposed to respond to that?");
 		edgyThoughts.Add ("It’s like, if I defend myself, I’m risking more harassment... or worse...");
 		edgyThoughts.Add ("But if I don’t, am I just letting him win?");
-		edgyThoughts.Add ("God, this is exactly why I hate Manhattan."); 
-		edgyThoughts.Add ("I’m just gonna keep my head down and walk fast.");
-		edgyThoughts.Add ("Penn Station can’t be too far away.");
+		edgyThoughts.Add ("God, this is exactly why I hate Manhattan"); 
+		edgyThoughts.Add ("I’m just gonna keep my head down and walk fast");
+		edgyThoughts.Add ("Penn Station can’t be too far away");
 		catCallDone = true;
 		heroOrig = player.GetComponent<SpriteRenderer> ().sprite;
 	}

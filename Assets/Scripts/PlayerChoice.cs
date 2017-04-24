@@ -44,23 +44,23 @@ public class PlayerChoice : MonoBehaviour {
 
 		conversationLines2 = new List<string> ();
 		conversationLines2.Add ("Are you getting a call?"); // rachel
-		conversationLines2.Add ("I think so. One sec."); // friend 1
+		conversationLines2.Add ("I think so. One sec"); // friend 1
 		conversationLines2.Add ("Oh my God, hey Jack!"); // friend 1
 		conversationLines2.Add ("Now? Like, right now?"); // friend 1
 		conversationLines2.Add ("Oh my God, I totally forgot. I'm so sorry!"); // friend 1
 		conversationLines2.Add ("Ummm, I can probably be there in like fifteen minutes. Would that work?"); // friend 1
-		conversationLines2.Add ("Great! I'll see you then."); // friend 1
-		conversationLines2.Add ("Dude, I'm so sorry but I've got to go."); // friend 1
-		conversationLines2.Add ("I totally forgot I made plans to meet up with Jack."); // friend 1
+		conversationLines2.Add ("Great! I'll see you then"); // friend 1
+		conversationLines2.Add ("Dude, I'm so sorry but I've got to go"); // friend 1
+		conversationLines2.Add ("I totally forgot I made plans to meet up with Jack"); // friend 1
 		conversationLines2.Add ("Do you remember him? From high school?"); // friend 1
 		conversationLines2.Add ("I mean, yeah, high school wasn't so long ago. You have to go right now?"); // rachel
-		conversationLines2.Add ("I really do, our plans started thirty minutes ago."); // friend 1
+		conversationLines2.Add ("I really do, our plans started thirty minutes ago"); // friend 1
 		conversationLines2.Add ("I know you're rarely in Manhattan, but you'll be okay, right?"); // friend 1
 		conversationLines2.Add ("I mean, I don't live here..."); // rachel
 		conversationLines2.Add ("And I have no idea how to get to Penn Station..."); // rachel
 		conversationLines2.Add ("Plus my phone is running on really low battery..."); // rachel
-		conversationLines2.Add ("It's just a few blocks away."); // friend 1
-		conversationLines2.Add ("And I really, really have to go."); // friend 1
+		conversationLines2.Add ("It's just a few blocks away"); // friend 1
+		conversationLines2.Add ("And I really, really have to go"); // friend 1
 		conversationLines2.Add ("Tell me you'll be okay, please!"); // friend 1
 
 		// dialogue option (rachel)
@@ -77,6 +77,7 @@ public class PlayerChoice : MonoBehaviour {
 		if (dialogueComplete) {
 			hero.GetComponent<Animator> ().enabled = true;
 			friend.GetComponent<SpriteRenderer> ().flipX = true;
+			friend.GetComponent<Friend> ().independent = true;
 			friend.GetComponent<Animator> ().enabled = true;
 			friend.transform.position = Vector2.MoveTowards (friend.transform.position, new Vector2(friend.transform.position.x  - 12.5f, friend.transform.position.y), 0.1f);
 			if (first) {

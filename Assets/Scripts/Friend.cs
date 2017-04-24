@@ -23,6 +23,7 @@ public class Friend : MonoBehaviour {
 	public Text tempText;
 
 	public Text moveText;
+	public bool independent;
 
 	private PlayerController p; // to pause the player's movement
 	// public Animator anim; // animator for the hero?
@@ -54,11 +55,11 @@ public class Friend : MonoBehaviour {
 
 		conversationLines1 = new List<string> ();
 		conversationLines1.Add ("I missed you guys so much!"); // rachel
-		conversationLines1.Add ("Me too, I wish we could do this more often."); // friend 2
-		conversationLines1.Add ("I really miss being able to go into the city with you guys."); // friend 1
-		conversationLines1.Add ("We’ll have to do it again the next time we’re all in town."); // friend 2
-		conversationLines1.Add ("Agreed."); // rachel
-		conversationLines1.Add ("Alright, well I’ve got to get going. I have work in twenty."); // friend 2
+		conversationLines1.Add ("Me too, I wish we could do this more often"); // friend 2
+		conversationLines1.Add ("I really miss being able to go into the city with you guys"); // friend 1
+		conversationLines1.Add ("We’ll have to do it again the next time we’re all in town"); // friend 2
+		conversationLines1.Add ("Agreed"); // rachel
+		conversationLines1.Add ("Alright, well I’ve got to get going. I have work in twenty"); // friend 2
 		conversationLines1.Add ("Awww, okay. Bye, Maya!"); // friend 1
 		conversationLines1.Add ("Bye, girl!"); // rachel
 		conversationLines1.Add ("I'll see you guys soon, I promise!"); // friend 2
@@ -72,6 +73,7 @@ public class Friend : MonoBehaviour {
 		friend2Leave = false;
 
 		StartCoroutine (Cutscene ());
+		independent = false;
 	}
 
 	void Update () {
