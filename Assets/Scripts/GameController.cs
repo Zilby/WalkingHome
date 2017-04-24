@@ -13,11 +13,15 @@ public class GameController : MonoBehaviour {
 	public Slider pSlider;
 	public Slider cSlider;
 	public GameObject stats;
+	public GameObject timer;
+
+	private int counter = 300;
 
 	public void Start() {
 		paranoia = 0; // initializes paranoia to min
 		confidence = 100; // initializes confidence to max
 		frustration = 0; // initializes frustration to min
+		StartCoroutine(Doomsday());
 	}
 
 	void Awake()
@@ -36,5 +40,20 @@ public class GameController : MonoBehaviour {
 		fSlider.value = frustration;
 		pSlider.value = paranoia;
 		cSlider.value = confidence;
+	}
+
+	public IEnumerator Doomsday() {
+		while (counter >= 0) {
+			counter--;
+			timer.GetComponent<Text> ().text = "Time Until Train: " + ClockTime (counter);
+			yield return new WaitForSeconds(1.0f);
+		}
+	}
+
+	string ClockTime(int sec) {
+		int seconds = sec % 60;
+		int minutes = sec / 60;
+
+		return minutes.ToString () + ":" + seconds.ToString ();
 	}
 }
