@@ -18,12 +18,13 @@ public class DialogueOption : MonoBehaviour {
 	public GameObject hero; // represents the player
 	private Sprite heroOrig; // represents the player's starting sprite
 	private bool optionSelected;
-	private bool first = true;
+	private bool first;
 
 	// Use this for initialization
 	void Start () {
 		heroOrig = hero.GetComponent<SpriteRenderer> ().sprite;
 		optionSelected = false;
+		first = true;
 	}
 	
 	// Update is called once per frame
@@ -32,15 +33,16 @@ public class DialogueOption : MonoBehaviour {
 		// TODO determine if we need anything in this function, if not => remove it
 	}
 
-	void OnTriggerEnter2D (Collider2D col) {
-		if (col.gameObject.name.Equals("enemy")) {
+	void OnTriggerEnter (Collider col) {
+		if (col.gameObject.name.Equals("Herobox") && first) {
 			StartCoroutine(PauseGame ()); // give the player some time to make a decision -> freeze everything else!
 			StartCoroutine(DialogueOptions ()); // the player has an opportunity to impact the game
-			// first--;
+			first = false;
 		}
 	}
 
 	public IEnumerator DialogueOptions () {
+		bool choiceSelected = false;
 		yield return new WaitForSeconds (0.01f); // for stableness of enum, match other simultaneous enum? TODO
 
 		thinking.SetActive (true); // display the thought bubble
@@ -60,16 +62,14 @@ public class DialogueOption : MonoBehaviour {
 				speech.GetComponent<Text>().text = "*" + optionOneText.GetComponent<Text> ().text + "*"; 
 				optionSelected = true;
 				StopCoroutine (PauseGame ());
-				optionSelected = true;
+				Time.timeScale = 1.0f;
 			} else if (Input.GetKeyDown ("2")) {
 				speech.GetComponent<Text>().text = optionTwoText.GetComponent<Text> ().text; 
 				optionSelected = true;
-				StopCoroutine (PauseGame ());
-				optionSelected = true;
+				choiceSelected = true;
 			}
 		}
-
-		Debug.Log ("while loop broke");
+			
 		thinking.SetActive(false);
 		optionOne.SetActive(false);
 		optionTwo.SetActive(false);
@@ -77,16 +77,16 @@ public class DialogueOption : MonoBehaviour {
 		optionTwoText.SetActive(false);
 		optionSelected = false;
 
-		// optionSelected = false; // reset for new collisions
-		speaking.SetActive(true); // speech bubble is enabled
-		speech.SetActive(true); // words in bubble are enabled
-		yield return new WaitForSecondsRealtime (2.0f); // speech stays active for a while
-		speaking.SetActive(false); // speech bubble is hidden
-		speech.SetActive(false); // words in bubble are disabled
-
+		if (choiceSelected) {
+			speaking.SetActive(true); // speech bubble is enabled
+			speech.SetActive(true); // words in bubble are enabled
+			yield return new WaitForSecondsRealtime (2.0f); // speech stays active for a while
+			speaking.SetActive(false); // speech bubble is hidden
+			speech.SetActive(false); // words in bubble are disabled
+		}
+		choiceSelected = false;
 	}
-
-	// TODO rename, fix the stopcoroutine interaction from above so that the pause will cancel once an option is a selected
+		
 	public IEnumerator PauseGame() {
 
 		yield return new WaitForSeconds (0.01f); // for stableness of enum
@@ -94,12 +94,11 @@ public class DialogueOption : MonoBehaviour {
 
 		int counter = 0;
 		while (!optionSelected && counter < 50) {
-			Debug.Log (counter);
 			yield return new WaitForSecondsRealtime (0.1f);
 			counter++;
 		}
 
 		optionSelected = true;
-		Time.timeScale = 1.0f; // TODO make sure 1.0 is the default
+		Time.timeScale = 1.0f; 
 	}
 }
