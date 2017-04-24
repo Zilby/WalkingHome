@@ -10,6 +10,7 @@ public class ThoughtsController : MonoBehaviour {
 	public GameObject catcall;
 	public GameObject frustration;
 	public GameObject paranoia;
+	public GameObject stat;
 	private Text text; // the thought to be displayed
 	private List<string> edgyThoughts;
 	private int edgyIndex;
@@ -52,11 +53,33 @@ public class ThoughtsController : MonoBehaviour {
 
 		catCallDone = true;
 
-		GameController.frustration += 50;
-		GameController.paranoia += 20;
-		GameController.confidence -= 10;
+		GameController.frustration += 20;
+		GameController.paranoia += 5;
+		GameController.confidence -= 5;
 		frustration.SetActive (true);
 		paranoia.SetActive (true);
+
+		GameObject f = Instantiate (stat);
+		GameObject c = Instantiate (stat);
+		GameObject p = Instantiate (stat);
+
+		Vector3 heroPos = player.transform.position;
+
+		f.transform.position = new Vector3 (heroPos.x, heroPos.y + 1.5f, heroPos.z - 5f);
+		c.transform.position = new Vector3 (heroPos.x + 1.5f, heroPos.y + 1.5f, heroPos.z - 5f);
+		p.transform.position = new Vector3 (heroPos.x - 1.5f, heroPos.y + 1.5f, heroPos.z - 5f);
+
+		StatController fs = f.GetComponent<StatController> ();
+		StatController cs = c.GetComponent<StatController> ();
+		StatController ps = p.GetComponent<StatController> ();
+
+		fs.change = "+20";
+		cs.change = "-5";
+		ps.change = "+5";
+
+		fs.pickColor (2); 
+		cs.pickColor (0);
+		ps.pickColor (1);
 
 
 		player.GetComponent<PlayerController> ().CharacterPause = false;
