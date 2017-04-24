@@ -9,7 +9,8 @@ using UnityEngine.UI;
 public class DialogueOption : MonoBehaviour {
 
 	public GameObject thinking; // represents the thought bubble
-	public GameObject speaking; // represents the speech bubble, as well as the Text object that will be associated with it??
+	public GameObject speaking; // represents the speech bubble
+	public GameObject speech; // represents the words in the speech bubble
 	public GameObject optionOne; // represents the 1 key image
 	public GameObject optionTwo; // represents the 2 key image
 	public GameObject optionOneText; // represents the associated choice
@@ -49,7 +50,7 @@ public class DialogueOption : MonoBehaviour {
 		hero.GetComponent<Animator> ().enabled = false; // stop hero's walking
 		hero.GetComponent<SpriteRenderer> ().sprite = heroOrig; // reset hero's sprite
 
-		// waiting to pick an option... need to include time running out TODO
+		// waiting to pick an option, or until time runs out
 		while (!optionSelected) {
 			yield return new WaitForSecondsRealtime (.01f);
 			if (Input.GetKeyDown ("1")) {
@@ -58,24 +59,28 @@ public class DialogueOption : MonoBehaviour {
 				optionTwo.SetActive(false);
 				optionOneText.SetActive(false);
 				optionTwoText.SetActive(false);
-				speaking.GetComponent<Text> ().text = optionOneText.GetComponent<Text> ().text; // TODO actually make this relevant
+				speech.GetComponent<Text>().text = "*" + optionOneText.GetComponent<Text> ().text + "*"; 
 				optionSelected = true;
 				StopCoroutine (PauseGame ());
+				// TODO update stats, consistent decrease, no randomness
 			} else if (Input.GetKeyDown ("2")) {
 				thinking.SetActive(false);
 				optionOne.SetActive(false);
 				optionTwo.SetActive(false);
 				optionOneText.SetActive(false);
 				optionTwoText.SetActive(false);
-				speaking.GetComponent<Text> ().text = optionTwoText.GetComponent<Text> ().text; // TODO actually make this relevant
+				speech.GetComponent<Text>().text = optionTwoText.GetComponent<Text> ().text; 
 				optionSelected = true;
 				StopCoroutine (PauseGame ());
+				// TODO update stats, randomly based on response, etc.
 			}
 		}
 
 		speaking.SetActive(true); // speech bubble is enabled
+		speech.SetActive(true); // words in bubble are enabled
 		yield return new WaitForSecondsRealtime (2.0f); // speech stays active for a while
 		speaking.SetActive(false); // speech bubble is hidden
+		speech.SetActive(false); // words in bubble are disabled
 
 	}
 
