@@ -3,39 +3,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// this script is intended to be mainly affected by trigger events of enemies - when they collide with the player
+// the player will have 5 seconds to make a choice, or it will default to saying nothing and continuing to walk
+// this specification is not final, nor is it particularly effective as it stands
 public class DialogueOption : MonoBehaviour {
 
-	public GameObject thinking;
-	public GameObject speaking;
-	public GameObject optionOne;
-	public GameObject optionTwo;
-	public GameObject hero;
-	private Sprite heroOrig;
+	public GameObject thinking; // represents the thought bubble
+	public GameObject speaking; // represents the speech bubble, as well as the Text object that will be associated with it??
+	public GameObject optionOne; // represents the 1 key image
+	public GameObject optionTwo; // represents the 2 key image
+	public GameObject hero; // represents the player
+	private Sprite heroOrig; // represents the player's starting sprite
 
 	// Use this for initialization
 	void Start () {
-		// initalize all the gameobjects and stuff from above
 		heroOrig = hero.GetComponent<SpriteRenderer> ().sprite;
-
-
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		// do anything that needs to happen essentially on tick
+		// TODO determine if we need anything in this function, if not => remove it
 	}
 
 	void OnTriggerEnter2D (Collider2D col) {
-		StartCoroutine(PauseGame ()); // give the player some time to make a decision -> freeze everything else!
-		StartCoroutine(DialogueOptions ()); // the player has an opportunity to impact the game
+		if (col.gameObject.name.Equals("enemy")) {
+			Debug.Log ("misery"); // checks to see if the player is actually colliding with the "enemy"
+			StartCoroutine(PauseGame ()); // give the player some time to make a decision -> freeze everything else!
+			// StartCoroutine(DialogueOptions ()); // the player has an opportunity to impact the game
+		}
 	}
 
 	public IEnumerator DialogueOptions () {
+		bool optionSelected = false; // the player has not made a choice yet
+		yield return new WaitForSeconds (0.01f); // for stableness of enum, match other simultaneous enum? TODO
 
-		yield return new WaitForSeconds (0.01f);
-
-		thinking.SetActive(true); // display the thought bubble
-		optionOne.SetActive(true); // display the 1 key
+		thinking.SetActive (true); // display the thought bubble
+		optionOne.SetActive (true); // display the 1 key
 		optionTwo.SetActive (true); // display the 2 key
 		optionOne.GetComponent<Text> ().text = "I'll keep walking"; // retitle options
 		optionTwo.GetComponent<Text> ().text = "I won't let this slide"; // retitle options
@@ -43,23 +47,24 @@ public class DialogueOption : MonoBehaviour {
 		hero.GetComponent<SpriteRenderer> ().sprite = heroOrig; // reset hero's sprite
 
 		// waiting to pick an option... need to include time running out TODO
-		while (text.text != "Err" && text.text != ("Yup")) {
+		while (!optionSelected) {
 			yield return new WaitForSeconds (.01f);
 			if (Input.GetKeyDown ("1")) {
 				thinking.SetActive(false);
 				optionOne.SetActive(false);
 				optionTwo.SetActive(false);
 				speaking.GetComponent<Text> ().text = optionOne.GetComponent<Text> ().text;
+				optionSelected = true;
 			} else if (Input.GetKeyDown ("2")) {
 				thinking.SetActive(false);
 				optionOne.SetActive(false);
 				optionTwo.SetActive(false);
 				speaking.GetComponent<Text> ().text = optionTwo.GetComponent<Text> ().text;
+				optionSelected = true;
 			}
 		}
 
 		speaking.SetActive(true); // speech bubble is enabled
-		speaking.GetComponent<Text>().text. = true; // text is shown on bubble
 		yield return new WaitForSeconds (2.0f); // speech stays active for a while
 		speaking.SetActive(false); // speech bubble is hidden
 
