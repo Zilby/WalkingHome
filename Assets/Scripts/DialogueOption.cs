@@ -12,6 +12,8 @@ public class DialogueOption : MonoBehaviour {
 	public GameObject speaking; // represents the speech bubble, as well as the Text object that will be associated with it??
 	public GameObject optionOne; // represents the 1 key image
 	public GameObject optionTwo; // represents the 2 key image
+	public GameObject optionOneText; // represents the associated choice
+	public GameObject optionTwoText; // represents the associated choice
 	public GameObject hero; // represents the player
 	private Sprite heroOrig; // represents the player's starting sprite
 
@@ -28,9 +30,8 @@ public class DialogueOption : MonoBehaviour {
 
 	void OnTriggerEnter2D (Collider2D col) {
 		if (col.gameObject.name.Equals("enemy")) {
-			Debug.Log ("misery"); // checks to see if the player is actually colliding with the "enemy"
 			StartCoroutine(PauseGame ()); // give the player some time to make a decision -> freeze everything else!
-			// StartCoroutine(DialogueOptions ()); // the player has an opportunity to impact the game
+			StartCoroutine(DialogueOptions ()); // the player has an opportunity to impact the game
 		}
 	}
 
@@ -41,37 +42,42 @@ public class DialogueOption : MonoBehaviour {
 		thinking.SetActive (true); // display the thought bubble
 		optionOne.SetActive (true); // display the 1 key
 		optionTwo.SetActive (true); // display the 2 key
-		optionOne.GetComponent<Text> ().text = "I'll keep walking"; // retitle options
-		optionTwo.GetComponent<Text> ().text = "I won't let this slide"; // retitle options
+		optionOneText.GetComponent<Text>().text = "I'll keep walking"; // retitle options
+		optionTwoText.GetComponent<Text>().text = "I won't let this slide"; // retitle options
 		hero.GetComponent<Animator> ().enabled = false; // stop hero's walking
 		hero.GetComponent<SpriteRenderer> ().sprite = heroOrig; // reset hero's sprite
 
 		// waiting to pick an option... need to include time running out TODO
 		while (!optionSelected) {
-			yield return new WaitForSeconds (.01f);
+			yield return new WaitForSecondsRealtime (.01f);
 			if (Input.GetKeyDown ("1")) {
 				thinking.SetActive(false);
 				optionOne.SetActive(false);
 				optionTwo.SetActive(false);
-				speaking.GetComponent<Text> ().text = optionOne.GetComponent<Text> ().text;
+				optionOneText.SetActive(false);
+				optionTwoText.SetActive(false);
+				speaking.GetComponent<Text> ().text = optionOneText.GetComponent<Text> ().text;
 				optionSelected = true;
+				StopCoroutine (PauseGame ());
 			} else if (Input.GetKeyDown ("2")) {
 				thinking.SetActive(false);
 				optionOne.SetActive(false);
 				optionTwo.SetActive(false);
-				speaking.GetComponent<Text> ().text = optionTwo.GetComponent<Text> ().text;
+				optionOneText.SetActive(false);
+				optionTwoText.SetActive(false);
+				speaking.GetComponent<Text> ().text = optionTwoText.GetComponent<Text> ().text;
 				optionSelected = true;
+				StopCoroutine (PauseGame ());
 			}
 		}
 
 		speaking.SetActive(true); // speech bubble is enabled
-		yield return new WaitForSeconds (2.0f); // speech stays active for a while
+		yield return new WaitForSecondsRealtime (2.0f); // speech stays active for a while
 		speaking.SetActive(false); // speech bubble is hidden
 
-		// the retaliation is done, so we can resume the game and such TODO
 	}
 
-	// TODO rename
+	// TODO rename, fix the stopcoroutine interaction from above so that the pause will cancel once an option is a selected
 	public IEnumerator PauseGame() {
 
 		yield return new WaitForSeconds (0.01f); // for stableness of enum
