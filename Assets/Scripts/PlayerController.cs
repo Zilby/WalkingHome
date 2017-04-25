@@ -77,8 +77,10 @@ public class PlayerController : MonoBehaviour {
 		if (horizontal > 0) {
 			// face right
 			sr.flipX = false;
-			if (!friend.GetComponent<Friend>().independent) {
-				friend.GetComponent<SpriteRenderer> ().flipX = false;
+			if (friend) {
+				if (!friend.GetComponent<Friend> ().independent) {
+					friend.GetComponent<SpriteRenderer> ().flipX = false;
+				}
 			}
 		}
 

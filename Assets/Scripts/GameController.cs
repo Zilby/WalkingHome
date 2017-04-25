@@ -15,13 +15,17 @@ public class GameController : MonoBehaviour {
 	public GameObject stats;
 	public GameObject timer;
 
-	private int counter = 300;
+	// public PlayerController p; TODO
+
+	private int secondsTilTrain = 420;
+	private int counter;
 
 	public void Start() {
 		paranoia = 0; // initializes paranoia to min
 		confidence = 100; // initializes confidence to max
 		frustration = 0; // initializes frustration to min
 		StartCoroutine(Doomsday());
+		counter = secondsTilTrain;
 	}
 
 	void Awake()
@@ -40,13 +44,22 @@ public class GameController : MonoBehaviour {
 		fSlider.value = frustration;
 		pSlider.value = paranoia;
 		cSlider.value = confidence;
+
+		// update the player's move speed based on the current stats of the player
+		// CONSIDERATIONS:
+		// -- Confidence starts at 100
+		// -- Frustration/Paranoia start at 0
+		// -- Each stat can have a slowing/speeding effect on the player
+		// p.moveSpeed = p.moveSpeed * (cSlider.value / (pSlider.value + fSlider.value)); // TOTALLY RANDOM MATH TODO
 	}
 
 	public IEnumerator Doomsday() {
-		while (counter >= 0) {
-			counter--;
-			timer.GetComponent<Text> ().text = "Time Until Train: " + ClockTime (counter);
-			yield return new WaitForSeconds(1.0f);
+		if (SceneManager.GetActiveScene ().name != "TitleScreen" && SceneManager.GetActiveScene ().name != "OpenerText") {
+			while (counter > 0) {
+				counter--;
+				timer.GetComponent<Text> ().text = "Time Until Train: " + ClockTime (counter);
+				yield return new WaitForSeconds (1.0f);
+			}
 		}
 	}
 
