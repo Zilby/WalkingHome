@@ -54,6 +54,14 @@ public class GameController : MonoBehaviour {
 		int seconds = sec % 60;
 		int minutes = sec / 60;
 
-		return minutes.ToString () + ":" + seconds.ToString ();
+		string minStr = minutes.ToString ();
+		string secStr;
+		if (seconds < 10) {
+			secStr = "0" + seconds.ToString ();
+		} else {
+			secStr = seconds.ToString ();
+		}
+
+		return minStr + ":" + secStr;
 	}
 }
