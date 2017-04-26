@@ -16,9 +16,13 @@ public class DialogueOption : MonoBehaviour {
 	public GameObject optionOneText; // represents the associated choice
 	public GameObject optionTwoText; // represents the associated choice
 	public GameObject hero; // represents the player
+	public GameObject stat; // to be created upon stat changes
 	private Sprite heroOrig; // represents the player's starting sprite
 	private bool optionSelected;
 	private bool first;
+	private Vector3 heroPos;
+
+	List<string> responses;
 
 	// Use this for initialization
 	void Start () {
@@ -41,6 +45,14 @@ public class DialogueOption : MonoBehaviour {
 		}
 	}
 
+	void OnTriggerEnter2D (Collider2D col) {
+		if (col.gameObject.name.Equals("Hero") && first) {
+			StartCoroutine(PauseGame ()); // give the player some time to make a decision -> freeze everything else!
+			StartCoroutine(DialogueOptions ()); // the player has an opportunity to impact the game
+			first = false;
+		}
+	}
+
 	public IEnumerator DialogueOptions () {
 		bool choiceSelected = false;
 		yield return new WaitForSeconds (0.01f); // for stableness of enum, match other simultaneous enum? TODO
@@ -55,6 +67,24 @@ public class DialogueOption : MonoBehaviour {
 		hero.GetComponent<Animator> ().enabled = false; // stop hero's walking
 		hero.GetComponent<SpriteRenderer> ().sprite = heroOrig; // reset hero's sprite
 
+		GameObject f = Instantiate (stat);
+		GameObject c = Instantiate (stat);
+		GameObject p = Instantiate (stat);
+
+		heroPos = hero.transform.position;
+
+		f.transform.position = new Vector3 (heroPos.x, heroPos.y + 10, heroPos.z + 0.5f);
+		c.transform.position = new Vector3 (heroPos.x + 0.5f, heroPos.y + 10, heroPos.z + 0.5f);
+		p.transform.position = new Vector3 (heroPos.x - 0.5f, heroPos.y + 10, heroPos.z + 0.5f);
+
+		StatController fs = f.GetComponent<StatController> ();
+		StatController cs = c.GetComponent<StatController> ();
+		StatController ps = p.GetComponent<StatController> ();
+
+		fs.pickColor (2); 
+		cs.pickColor (0);
+		ps.pickColor (1);
+
 		// waiting to pick an option, or until time runs out
 		while (!optionSelected) {
 			yield return new WaitForSecondsRealtime (.01f);
@@ -63,13 +93,32 @@ public class DialogueOption : MonoBehaviour {
 				optionSelected = true;
 				StopCoroutine (PauseGame ());
 				Time.timeScale = 1.0f;
+				GameController.confidence -= 5;
+				GameController.paranoia += 10;
+				cs.change = "-5";
+				ps.change = "+10";
 			} else if (Input.GetKeyDown ("2")) {
-				speech.GetComponent<Text>().text = optionTwoText.GetComponent<Text> ().text; 
+				int randomIndex = Random.Range (0, responses.Count);
+				speech.GetComponent<Text>().text = responses[randomIndex]; 
 				optionSelected = true;
 				choiceSelected = true;
+				if (GameController.confidence > 35) {
+					// enemy makes no response
+					GameController.confidence += 5;
+					cs.change = "+5";
+				} else {
+					// enemy says something
+					GameController.confidence -= 10;
+					GameController.paranoia += 20;
+					cs.change = "-10";
+					ps.change = "+20";
+				}
 			}
 		}
-			
+
+		GameController.frustration += 5;
+		fs.change = "+5";
+
 		thinking.SetActive(false);
 		optionOne.SetActive(false);
 		optionTwo.SetActive(false);
