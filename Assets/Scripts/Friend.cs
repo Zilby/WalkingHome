@@ -42,7 +42,7 @@ public class Friend : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//Time.timeScale = 1.0f;
+		Time.timeScale = 1.0f;
 		p = hero.GetComponent<PlayerController> ();
 		p.CharacterPause = true;
 		// anim.enabled = false;
