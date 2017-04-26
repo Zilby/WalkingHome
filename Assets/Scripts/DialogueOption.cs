@@ -112,10 +112,11 @@ public class DialogueOption : MonoBehaviour {
 				Time.timeScale = 1.0f;
 				if (GameController.confidence > 35) {
 					// enemy makes no response
+					StartCoroutine(gameObject.GetComponent<EnemyController>().Catcall ()); // FOR TESTING TODO
 					GameController.confidence += 5;
 					cs.change = "+5";
 				} else {
-					// enemy says something
+					StartCoroutine (gameObject.GetComponent<EnemyController>().Catcall ()); // enemy responds
 					GameController.confidence -= 10;
 					GameController.paranoia += 20;
 					cs.change = "-10";
