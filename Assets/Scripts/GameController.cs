@@ -41,6 +41,10 @@ public class GameController : MonoBehaviour {
 			stats.SetActive (false);
 		}
 
+		frustration = Mathf.Clamp (frustration, 0, 100);
+		paranoia = Mathf.Clamp (paranoia, 0, 100);
+		confidence = Mathf.Clamp (confidence, 0, 100);
+
 		fSlider.value = frustration;
 		pSlider.value = paranoia;
 		cSlider.value = confidence;

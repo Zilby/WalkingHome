@@ -36,6 +36,10 @@ public class MazePlayerController : PlayerController {
 	void Update() {
 		xDir = Input.GetAxisRaw ("Horizontal");
 		yDir = Input.GetAxisRaw ("Vertical");
+		if (GameController.paranoia > 50 && !paranoid) {
+			StartCoroutine(ParanoiaCounter ());
+			paranoid = true;
+		}
 	}
 
 	private void MovePlayer(float horizontal, float vertical) {

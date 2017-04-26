@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour {
 	protected bool characterPause; // determines if the character will be stopped
 	protected Sprite orig;
 	protected Sprite friendOrig;
+	protected bool paranoid = false;
 
     public float moveSpeed; // determines the moveSpeed of the hero
 	public List<GameObject> initialThoughts;
@@ -63,13 +64,14 @@ public class PlayerController : MonoBehaviour {
 		else {
 			MovePlayer (xDir, yDir); // moves the character
 		}
-		if (GameController.paranoia > 50) {
+		if (GameController.paranoia > 50 && !paranoid) {
 			StartCoroutine(ParanoiaCounter ());
+			paranoid = true;
 		}
 	}
 
 	public IEnumerator ParanoiaCounter () {
-		yield return new WaitForSeconds ((GameController.paranoia + 30) / 2);
+		yield return new WaitForSeconds ((130 - GameController.paranoia) / 2);
 		StartCoroutine (Paranoid ());
 	}
 
@@ -149,9 +151,12 @@ public class PlayerController : MonoBehaviour {
 		int i = Random.Range (0, paranoi.Count);
 		characterPause = true;
 		paranoi[i].SetActive (true);
+		sr.flipX = !sr.flipX;
+		StartCoroutine(PauseAnim());
 		yield return new WaitForSeconds (3f);
 		characterPause = false;
 		paranoi[i].SetActive (false);
+		paranoid = false;
 	}
 
 	public bool CharacterPause
