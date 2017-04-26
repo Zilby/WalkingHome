@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour {
 
 	public Transform[] waypoints; // array of points for the enemy to move between
 	public GameObject comment;
+	public static List<string> comments = new List<string>();
 	public List<GameObject> responses;
 	public SpriteRenderer sr;
 	public GameObject stat;
@@ -23,6 +25,22 @@ public class EnemyController : MonoBehaviour {
 		if (waypoints.Length > 0) {
 			end = waypoints [cur].position;
 		}
+
+		comments.Add ("How much, baby?");
+		comments.Add ("Damn girl, you’ve got some sexy legs.");
+		comments.Add ("Screw the gym, baby, I’ll give you a workout.");
+		comments.Add ("*kissing noises*");
+		comments.Add ("Whew, look at that ass!");
+		comments.Add ("Let’s see a smile, baby.");
+		comments.Add ("Dayummm, girl!");
+		comments.Add ("*whistle*");
+		comments.Add ("Hey there, sexy mama. Can I get your number?");
+		comments.Add ("Can I take you home?");
+		comments.Add ("Hot damn, I could feast on you.");
+		comments.Add ("Take care of that ass, sweetie.");
+		comments.Add ("Damn baby, let me give you a ride home. My car’s only a block away.");
+		comments.Add ("You are fine, sexy lady.");
+		comments.Add ("You want some fries with that shake, baby girl?");
     }
 
     // Update is called once per frame
@@ -64,6 +82,7 @@ public class EnemyController : MonoBehaviour {
 
 	public IEnumerator Catcall() {
 		if (!comment.activeInHierarchy) {
+			comment.GetComponent<Text> ().text = comments[Random.Range (0, comments.Count)];
 			comment.SetActive (true);
 			GameController.frustration += 10;
 			GameController.confidence -= 5;
