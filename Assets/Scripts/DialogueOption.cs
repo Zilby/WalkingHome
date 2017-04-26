@@ -25,6 +25,8 @@ public class DialogueOption : MonoBehaviour {
 	private Vector3 heroPos;
 
 	GameObject temp;
+	GameObject temp2;
+	GameObject temp3;
 
 	// Use this for initialization
 	void Start () {
@@ -35,7 +37,7 @@ public class DialogueOption : MonoBehaviour {
 		responses.Add("Could you leave me alone? Thanks.");
 		responses.Add("Hey, maybe you should try respecting women sometime.");
 		responses.Add("You know I'm a human being, right?");
-		responses.Add("You know, I'd atually rather not be catcalled right now.");
+		responses.Add("You know, I'd actually rather not be catcalled right now.");
 		responses.Add("Concept: Maybe don't harass women on the street?");
 	}
 	
@@ -82,7 +84,9 @@ public class DialogueOption : MonoBehaviour {
 				GameObject f = Instantiate (stat);
 				temp = f;
 				GameObject c = Instantiate (stat);
+				temp2 = c;
 				GameObject p = Instantiate (stat);
+				temp3 = p;
 
 				heroPos = hero.transform.position;
 
@@ -104,11 +108,17 @@ public class DialogueOption : MonoBehaviour {
 				GameController.paranoia += 10;
 				cs.change = "-5";
 				ps.change = "+10";
+				StatController fs = temp.GetComponent<StatController> ();
+				fs.pickColor (2);
+				GameController.frustration += 5;
+				fs.change = "+5";
 			} else if (Input.GetKeyDown ("2")) {
 				GameObject f = Instantiate (stat);
 				temp = f;
 				GameObject c = Instantiate (stat);
+				temp2 = c;
 				GameObject p = Instantiate (stat);
+				temp3 = f;
 
 				heroPos = hero.transform.position;
 
@@ -131,24 +141,29 @@ public class DialogueOption : MonoBehaviour {
 				if (GameController.confidence + Random.Range(0, 30) > 85) {
 					// enemy makes no response
 					StopCoroutine(gameObject.GetComponent<EnemyController>().Catcall ());
+					// yield return new WaitForSecondsRealtime (1.0f);
 					StartCoroutine(gameObject.GetComponent<EnemyController>().Catcall2 ()); // FOR TESTING TODO
 					GameController.confidence += 5;
 					cs.change = "+5";
+					StatController fs = temp.GetComponent<StatController> ();
+					fs.pickColor (2);
+					GameController.frustration += 5;
+					fs.change = "+5";
 				} else {
 					StopCoroutine(gameObject.GetComponent<EnemyController>().Catcall ());
+					// yield return new WaitForSecondsRealtime (1.0f);
 					StartCoroutine (gameObject.GetComponent<EnemyController>().Catcall2 ()); // enemy responds
 					GameController.confidence -= 10;
 					GameController.paranoia += 20;
 					cs.change = "-10";
 					ps.change = "+20";
+					StatController fs = temp.GetComponent<StatController> ();
+					fs.pickColor (2);
+					GameController.frustration += 5;
+					fs.change = "+5";
 				}
 			}
 		}
-
-		StatController fs = temp.GetComponent<StatController> ();
-		fs.pickColor (2);
-		GameController.frustration += 5;
-		fs.change = "+5";
 
 		thinking.SetActive(false);
 		optionOne.SetActive(false);
@@ -178,7 +193,39 @@ public class DialogueOption : MonoBehaviour {
 			pauseTime++;
 		}
 
+		thinking.SetActive(false);
+		optionOne.SetActive(false);
+		optionTwo.SetActive(false);
+		optionOneText.SetActive(false);
+		optionTwoText.SetActive(false);
+		optionSelected = false;
+
 		optionSelected = true;
-		Time.timeScale = 1.0f; 
+		Time.timeScale = 1.0f;
+
+		/*GameObject c = Instantiate (stat);
+		GameObject p = Instantiate (stat);
+		GameObject f = Instantiate (stat);
+
+		heroPos = hero.transform.position;
+
+		f.transform.position = new Vector3 (heroPos.x, heroPos.y + 1.5f, heroPos.z - 5f);
+		c.transform.position = new Vector3 (heroPos.x + 1.5f, heroPos.y + 1.5f, heroPos.z - 5f);
+		p.transform.position = new Vector3 (heroPos.x - 1.5f, heroPos.y + 1.5f, heroPos.z - 5f);
+
+		StatController cs = c.GetComponent<StatController> ();
+		StatController ps = p.GetComponent<StatController> ();
+
+		cs.pickColor (0);
+		ps.pickColor (1);
+
+		GameController.confidence -= 5;
+		GameController.paranoia += 10;
+		cs.change = "-5";
+		ps.change = "+10";
+		StatController fs = f.GetComponent<StatController> ();
+		fs.pickColor (2);
+		GameController.frustration += 5;
+		fs.change = "+5"; */
 	}
 }

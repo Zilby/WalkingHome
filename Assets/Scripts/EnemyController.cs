@@ -147,6 +147,7 @@ public class EnemyController : MonoBehaviour {
 	public IEnumerator Catcall2() {
 		yield return new WaitForSecondsRealtime (0.01f);
 		comment.SetActive (false);
+		yield return new WaitForSecondsRealtime (1.0f);
 
 		comment.GetComponentInChildren<Text> ().text = comments[Random.Range (0, comments.Count)];
 		comment.SetActive (true);
