@@ -20,16 +20,16 @@ public class DialogueOption : MonoBehaviour {
 	public static List<string> responses = new List<string>(5); // set list of retorts
 
 	private Sprite heroOrig; // represents the player's starting sprite
-	private bool optionSelected; // to help with flip flopping routines
 	private bool first; // to ensure the encounter only occurs once
 	private Vector3 heroPos; // hero's position
+	private int pauseTime = 0;
+	private bool stopPause = false;
 
 	GameObject temp; // dumb temporary variable to fix some code
 
 	// Use this for initialization
 	void Start () {
 		heroOrig = hero.GetComponent<SpriteRenderer> ().sprite;
-		optionSelected = false;
 		first = true;
 
 		responses.Add("Could you leave me alone? Thanks.");
@@ -41,6 +41,8 @@ public class DialogueOption : MonoBehaviour {
 
 	void OnTriggerEnter (Collider col) {
 		if (col.gameObject.name.Equals("Herobox") && first) {
+			pauseTime = 0;
+			stopPause = false;
 			StartCoroutine(PauseGame ()); // give the player some time to make a decision -> freeze everything else!
 			StartCoroutine(DialogueOptions ()); // the player has an opportunity to impact the game
 			first = false;
@@ -75,7 +77,7 @@ public class DialogueOption : MonoBehaviour {
 		hero.GetComponent<SpriteRenderer> ().sprite = heroOrig; // reset hero's sprite
 
 		// waiting to pick an option, or until time runs out
-		while (!optionSelected) {
+		while (!choiceSelected) {
 
 			yield return new WaitForSecondsRealtime (.01f);
 
@@ -109,11 +111,10 @@ public class DialogueOption : MonoBehaviour {
 				cs.change = "-5";
 				ps.change = "+10";
 				 
-				optionSelected = true; // TODO
 				choiceSelected = true; // TODO
 				StopCoroutine (PauseGame ()); // TODO
+				stopPause = true;
 				Time.timeScale = 1.0f; // TODO redundant?
-
 			} else if (Input.GetKeyDown ("2")) {
 				
 				GameObject f = Instantiate (stat);
@@ -141,19 +142,21 @@ public class DialogueOption : MonoBehaviour {
 				int randomIndex = Random.Range (0, responses.Count); // pick a random index
 				speech.GetComponent<Text>().text = responses[randomIndex]; // get a random response
 
-				optionSelected = true;
 				choiceSelected = true;
 
 				StopCoroutine (PauseGame ());
+				stopPause = true;
 				Time.timeScale = 1.0f;
 
 				if (GameController.confidence + Random.Range(0, 30) > 85) {
-					StopCoroutine(gameObject.GetComponent<EnemyController>().Catcall ());
+					StopCoroutine(GetComponent<EnemyController>().Catcall ());
+
 					GameController.confidence += 5;
 					cs.change = "+5";
+					ps.change = "+0";
 				} else {
-					StopCoroutine(gameObject.GetComponent<EnemyController>().Catcall ());
-					StartCoroutine (gameObject.GetComponent<EnemyController>().Catcall2 ());
+					StopCoroutine (GetComponent<EnemyController>().Catcall ());
+					StartCoroutine (GetComponent<EnemyController>().Catcall2 ());
 
 					GameController.confidence -= 10;
 					GameController.paranoia += 20;
@@ -169,6 +172,7 @@ public class DialogueOption : MonoBehaviour {
 		optionOneText.SetActive(false);
 		optionTwoText.SetActive(false);
 
+		/*
 		if (optionSelected) {
 			GameObject f = Instantiate (stat);
 			temp = f;
@@ -199,7 +203,7 @@ public class DialogueOption : MonoBehaviour {
 			speaking.SetActive(false); // speech bubble is hidden
 			speech.SetActive(false); // words in bubble are disabled
 		}
-		choiceSelected = false;
+		choiceSelected = false; */
 	}
 		
 	public IEnumerator PauseGame() {
@@ -207,10 +211,41 @@ public class DialogueOption : MonoBehaviour {
 		yield return new WaitForSeconds (0.01f); // for stableness of enum
 		Time.timeScale = 0.0f; // stops the game
 
-		int pauseTime = 0;
-		while (!optionSelected && pauseTime < 50) {
+		while (pauseTime < 50 && !stopPause) {
+			Debug.Log (pauseTime);
 			yield return new WaitForSecondsRealtime (0.1f);
 			pauseTime++;
+		}
+
+		if (!stopPause) {
+			GameObject f = Instantiate (stat);
+			temp = f;
+
+			GameObject c = Instantiate (stat);
+			GameObject p = Instantiate (stat);
+
+			heroPos = hero.transform.position;
+
+			f.transform.position = new Vector3 (heroPos.x, heroPos.y + 1.5f, heroPos.z - 5f);
+
+			c.transform.position = new Vector3 (heroPos.x + 1.5f, heroPos.y + 1.5f, heroPos.z - 5f);
+			p.transform.position = new Vector3 (heroPos.x - 1.5f, heroPos.y + 1.5f, heroPos.z - 5f);
+
+			StatController cs = c.GetComponent<StatController> ();
+			StatController ps = p.GetComponent<StatController> ();
+			StatController fs = temp.GetComponent<StatController> ();
+
+			cs.pickColor (0);
+			ps.pickColor (1);
+			fs.pickColor (2);
+
+			GameController.frustration += 5;
+			GameController.confidence -= 5;
+			GameController.paranoia += 10;
+
+			fs.change = "+5";
+			cs.change = "-5";
+			ps.change = "+10";
 		}
 
 		thinking.SetActive(false);
@@ -218,10 +253,6 @@ public class DialogueOption : MonoBehaviour {
 		optionTwo.SetActive(false);
 		optionOneText.SetActive(false);
 		optionTwoText.SetActive(false);
-		optionSelected = false;
-
-		yield return new WaitForSecondsRealtime (1.0f);
-		optionSelected = true;
 
 		Time.timeScale = 1.0f;
 	}

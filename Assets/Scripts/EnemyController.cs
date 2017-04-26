@@ -83,61 +83,13 @@ public class EnemyController : MonoBehaviour {
 	public IEnumerator Catcall() {
 		if (!comment.activeInHierarchy) {
 			comment.GetComponentInChildren<Text> ().text = comments[Random.Range (0, comments.Count)];
+
 			comment.SetActive (true);
-
-			if (!endScroll) {
-				GameController.frustration += 10;
-				GameController.confidence -= 5;
-				GameController.paranoia += 5;
-
-				GameObject f = Instantiate (stat);
-				GameObject c = Instantiate (stat);
-				GameObject p = Instantiate (stat);
-
-				f.transform.position = new Vector3 (heroPos.x, heroPos.y + 10, heroPos.z + 0.5f);
-				c.transform.position = new Vector3 (heroPos.x + 0.5f, heroPos.y + 10, heroPos.z + 0.5f);
-				p.transform.position = new Vector3 (heroPos.x - 0.5f, heroPos.y + 10, heroPos.z + 0.5f);
-
-				StatController fs = f.GetComponent<StatController> ();
-				StatController cs = c.GetComponent<StatController> ();
-				StatController ps = p.GetComponent<StatController> ();
-
-				fs.change = "+10";
-				cs.change = "-5";
-				ps.change = "+5";
-
-				fs.pickColor (2); 
-				cs.pickColor (0);
-				ps.pickColor (1);
-
-			}/* else {
-				yield return new WaitForSeconds (0.2f);
-
-				GameObject f = Instantiate (stat);
-				GameObject c = Instantiate (stat);
-				GameObject p = Instantiate (stat);
-
-				f.transform.position = new Vector3 (heroPos.x, heroPos.y + 1.5f, heroPos.z - 5f);
-				c.transform.position = new Vector3 (heroPos.x + 1.5f, heroPos.y + 1.5f, heroPos.z - 5f);
-				p.transform.position = new Vector3 (heroPos.x - 1.5f, heroPos.y + 1.5f, heroPos.z - 5f);
-
-				StatController fs = f.GetComponent<StatController> ();
-				StatController cs = c.GetComponent<StatController> ();
-				StatController ps = p.GetComponent<StatController> ();
-
-				fs.change = "+10";
-				cs.change = "-5";
-				ps.change = "+5";
-
-				fs.pickColor (2); 
-				cs.pickColor (0);
-				ps.pickColor (1);
-
-			}*/
-
 			yield return new WaitForSeconds (3.0f);
 			comment.SetActive (false);
+
 			GameObject r = responses [Random.Range (0, responses.Count)];
+
 			r.SetActive (true);
 			yield return new WaitForSeconds (3.0f);
 			r.SetActive (false);
@@ -146,10 +98,12 @@ public class EnemyController : MonoBehaviour {
 
 	public IEnumerator Catcall2() {
 		yield return new WaitForSecondsRealtime (0.01f);
+
 		comment.SetActive (false);
 		yield return new WaitForSecondsRealtime (1.0f);
 
 		comment.GetComponentInChildren<Text> ().text = comments[Random.Range (0, comments.Count)];
+
 		comment.SetActive (true);
 		yield return new WaitForSecondsRealtime (1.5f);
 		comment.SetActive (false);
