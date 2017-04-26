@@ -10,6 +10,7 @@ public class EnemyController : MonoBehaviour {
 	public List<GameObject> responses;
 	public SpriteRenderer sr;
 	public GameObject stat;
+	public bool endScroll = false;
 	private int cur = 0;
 	private Vector3 end;
 	private Vector3 heroPos;
@@ -64,30 +65,56 @@ public class EnemyController : MonoBehaviour {
 	public IEnumerator Catcall() {
 		if (!comment.activeInHierarchy) {
 			comment.SetActive (true);
-			GameController.frustration += 15;
-			GameController.confidence -= 10;
-			GameController.paranoia += 10;
+			GameController.frustration += 10;
+			GameController.confidence -= 5;
+			GameController.paranoia += 5;
 
-			GameObject f = Instantiate (stat);
-			GameObject c = Instantiate (stat);
-			GameObject p = Instantiate (stat);
+			if (!endScroll) {
 
-			f.transform.position = new Vector3 (heroPos.x, heroPos.y + 10, heroPos.z + 0.5f);
-			c.transform.position = new Vector3 (heroPos.x + 0.5f, heroPos.y + 10, heroPos.z + 0.5f);
-			p.transform.position = new Vector3 (heroPos.x - 0.5f, heroPos.y + 10, heroPos.z + 0.5f);
+				GameObject f = Instantiate (stat);
+				GameObject c = Instantiate (stat);
+				GameObject p = Instantiate (stat);
 
-			StatController fs = f.GetComponent<StatController> ();
-			StatController cs = c.GetComponent<StatController> ();
-			StatController ps = p.GetComponent<StatController> ();
+				f.transform.position = new Vector3 (heroPos.x, heroPos.y + 10, heroPos.z + 0.5f);
+				c.transform.position = new Vector3 (heroPos.x + 0.5f, heroPos.y + 10, heroPos.z + 0.5f);
+				p.transform.position = new Vector3 (heroPos.x - 0.5f, heroPos.y + 10, heroPos.z + 0.5f);
 
-			fs.change = "+15";
-			cs.change = "-10";
-			ps.change = "+10";
+				StatController fs = f.GetComponent<StatController> ();
+				StatController cs = c.GetComponent<StatController> ();
+				StatController ps = p.GetComponent<StatController> ();
 
-			fs.pickColor (2); 
-			cs.pickColor (0);
-			ps.pickColor (1);
+				fs.change = "+10";
+				cs.change = "-5";
+				ps.change = "+5";
 
+				fs.pickColor (2); 
+				cs.pickColor (0);
+				ps.pickColor (1);
+
+			} else {
+				yield return new WaitForSeconds (0.2f);
+
+				GameObject f = Instantiate (stat);
+				GameObject c = Instantiate (stat);
+				GameObject p = Instantiate (stat);
+
+				f.transform.position = new Vector3 (heroPos.x, heroPos.y + 1.5f, heroPos.z - 5f);
+				c.transform.position = new Vector3 (heroPos.x + 1.5f, heroPos.y + 1.5f, heroPos.z - 5f);
+				p.transform.position = new Vector3 (heroPos.x - 1.5f, heroPos.y + 1.5f, heroPos.z - 5f);
+
+				StatController fs = f.GetComponent<StatController> ();
+				StatController cs = c.GetComponent<StatController> ();
+				StatController ps = p.GetComponent<StatController> ();
+
+				fs.change = "+10";
+				cs.change = "-5";
+				ps.change = "+5";
+
+				fs.pickColor (2); 
+				cs.pickColor (0);
+				ps.pickColor (1);
+
+			}
 
 			yield return new WaitForSeconds (3.0f);
 			comment.SetActive (false);

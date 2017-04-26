@@ -15,7 +15,7 @@ public class PathfindingEnemy : MonoBehaviour
 	private Vector3 startPos;
 
 	void Start () {
-		counter = 80;
+		counter = 120;
 		startPos = transform.position;
 		stop = false;
 		y = transform.position.y;
@@ -49,7 +49,7 @@ public class PathfindingEnemy : MonoBehaviour
 					ps.change = "+1";
 					ps.pickColor (1);
 
-					counter = 80;
+					counter = 120;
 				} else {
 					counter--;
 				}
@@ -59,11 +59,8 @@ public class PathfindingEnemy : MonoBehaviour
 		
 	void OnCollisionEnter (Collision col) {
 		if (col.gameObject.tag == "hero") {
-			GameController.paranoia += 20;
+			GameController.paranoia += 10;
 			GameController.confidence -= 5;
-
-			GameController.paranoia += 20;
-			GameController.confidence -= 10;
 
 			GameObject c = Instantiate (stat);
 			GameObject p = Instantiate (stat);
@@ -76,8 +73,8 @@ public class PathfindingEnemy : MonoBehaviour
 			StatController cs = c.GetComponent<StatController> ();
 			StatController ps = p.GetComponent<StatController> ();
 
-			cs.change = "-10";
-			ps.change = "+20";
+			cs.change = "-5";
+			ps.change = "+10";
 
 			cs.pickColor (0);
 			ps.pickColor (1);
@@ -92,9 +89,9 @@ public class PathfindingEnemy : MonoBehaviour
 		} 
 		if (city) {
 			stop = true;
-			GameController.paranoia += 20;
-			GameController.frustration += 25;
-			GameController.confidence -= 10;
+			GameController.paranoia += 10;
+			GameController.frustration += 15;
+			GameController.confidence -= 5;
 
 			GameObject f = Instantiate (stat);
 			GameObject c = Instantiate (stat);
@@ -110,9 +107,9 @@ public class PathfindingEnemy : MonoBehaviour
 			StatController cs = c.GetComponent<StatController> ();
 			StatController ps = p.GetComponent<StatController> ();
 
-			fs.change = "+25";
-			cs.change = "-10";
-			ps.change = "+20";
+			fs.change = "+15";
+			cs.change = "-5";
+			ps.change = "+10";
 
 			fs.pickColor (2); 
 			cs.pickColor (0);

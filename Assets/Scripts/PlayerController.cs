@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour {
 	public GameObject friend; // the friend
     protected Rigidbody2D hero; // the hero's physics body
 	public SpriteRenderer sr; // the hero's sprite renderer
+	public List<GameObject> paranoi;
 	// public SpriteRenderer friendRend; // the friend's sprite renderer
 	protected bool characterPause; // determines if the character will be stopped
 	protected Sprite orig;
@@ -62,6 +63,14 @@ public class PlayerController : MonoBehaviour {
 		else {
 			MovePlayer (xDir, yDir); // moves the character
 		}
+		if (GameController.paranoia > 50) {
+			StartCoroutine(ParanoiaCounter ());
+		}
+	}
+
+	public IEnumerator ParanoiaCounter () {
+		yield return new WaitForSeconds ((GameController.paranoia + 30) / 2);
+		StartCoroutine (Paranoid ());
 	}
 
 	// moves the player, given two input floats
@@ -70,8 +79,10 @@ public class PlayerController : MonoBehaviour {
 		if (horizontal < 0) {
 			// face left
 			sr.flipX = true;
-			if (!friend.GetComponent<Friend>().independent) {
-				friend.GetComponent<SpriteRenderer> ().flipX = true;
+			if (friend) {
+				if (!friend.GetComponent<Friend> ().independent) {
+					friend.GetComponent<SpriteRenderer> ().flipX = true;
+				}
 			}
 		}
 		if (horizontal > 0) {
@@ -132,6 +143,15 @@ public class PlayerController : MonoBehaviour {
 			yield return new WaitForSeconds (3.5f);
 			g.SetActive (false);
 		}
+	}
+
+	public IEnumerator Paranoid() {
+		int i = Random.Range (0, paranoi.Count);
+		characterPause = true;
+		paranoi[i].SetActive (true);
+		yield return new WaitForSeconds (3f);
+		characterPause = false;
+		paranoi[i].SetActive (false);
 	}
 
 	public bool CharacterPause
