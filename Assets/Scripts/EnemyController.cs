@@ -84,11 +84,11 @@ public class EnemyController : MonoBehaviour {
 		if (!comment.activeInHierarchy) {
 			comment.GetComponentInChildren<Text> ().text = comments[Random.Range (0, comments.Count)];
 			comment.SetActive (true);
-			GameController.frustration += 10;
-			GameController.confidence -= 5;
-			GameController.paranoia += 5;
 
 			if (!endScroll) {
+				GameController.frustration += 10;
+				GameController.confidence -= 5;
+				GameController.paranoia += 5;
 
 				GameObject f = Instantiate (stat);
 				GameObject c = Instantiate (stat);
@@ -110,7 +110,7 @@ public class EnemyController : MonoBehaviour {
 				cs.pickColor (0);
 				ps.pickColor (1);
 
-			} else {
+			}/* else {
 				yield return new WaitForSeconds (0.2f);
 
 				GameObject f = Instantiate (stat);
@@ -133,7 +133,7 @@ public class EnemyController : MonoBehaviour {
 				cs.pickColor (0);
 				ps.pickColor (1);
 
-			}
+			}*/
 
 			yield return new WaitForSeconds (3.0f);
 			comment.SetActive (false);
@@ -142,6 +142,16 @@ public class EnemyController : MonoBehaviour {
 			yield return new WaitForSeconds (3.0f);
 			r.SetActive (false);
 		}
+	}
+
+	public IEnumerator Catcall2() {
+		yield return new WaitForSecondsRealtime (0.01f);
+		comment.SetActive (false);
+
+		comment.GetComponentInChildren<Text> ().text = comments[Random.Range (0, comments.Count)];
+		comment.SetActive (true);
+		yield return new WaitForSecondsRealtime (1.5f);
+		comment.SetActive (false);
 	}
 }
 

@@ -24,6 +24,8 @@ public class DialogueOption : MonoBehaviour {
 	private bool first;
 	private Vector3 heroPos;
 
+	GameObject temp;
+
 	// Use this for initialization
 	void Start () {
 		heroOrig = hero.GetComponent<SpriteRenderer> ().sprite;
@@ -73,28 +75,27 @@ public class DialogueOption : MonoBehaviour {
 		hero.GetComponent<Animator> ().enabled = false; // stop hero's walking
 		hero.GetComponent<SpriteRenderer> ().sprite = heroOrig; // reset hero's sprite
 
-		GameObject f = Instantiate (stat);
-		GameObject c = Instantiate (stat);
-		GameObject p = Instantiate (stat);
-
-		heroPos = hero.transform.position;
-
-		f.transform.position = new Vector3 (heroPos.x, heroPos.y + 1.5f, heroPos.z - 5f);
-		c.transform.position = new Vector3 (heroPos.x + 1.5f, heroPos.y + 1.5f, heroPos.z - 5f);
-		p.transform.position = new Vector3 (heroPos.x - 1.5f, heroPos.y + 1.5f, heroPos.z - 5f);
-
-		StatController fs = f.GetComponent<StatController> ();
-		StatController cs = c.GetComponent<StatController> ();
-		StatController ps = p.GetComponent<StatController> ();
-
-		fs.pickColor (2); 
-		cs.pickColor (0);
-		ps.pickColor (1);
-
 		// waiting to pick an option, or until time runs out
 		while (!optionSelected) {
 			yield return new WaitForSecondsRealtime (.01f);
 			if (Input.GetKeyDown ("1")) {
+				GameObject f = Instantiate (stat);
+				temp = f;
+				GameObject c = Instantiate (stat);
+				GameObject p = Instantiate (stat);
+
+				heroPos = hero.transform.position;
+
+				f.transform.position = new Vector3 (heroPos.x, heroPos.y + 1.5f, heroPos.z - 5f);
+				c.transform.position = new Vector3 (heroPos.x + 1.5f, heroPos.y + 1.5f, heroPos.z - 5f);
+				p.transform.position = new Vector3 (heroPos.x - 1.5f, heroPos.y + 1.5f, heroPos.z - 5f);
+
+				StatController cs = c.GetComponent<StatController> ();
+				StatController ps = p.GetComponent<StatController> ();
+
+				cs.pickColor (0);
+				ps.pickColor (1);
+
 				speech.GetComponent<Text>().text = "*" + optionOneText.GetComponent<Text> ().text + "*"; 
 				optionSelected = true;
 				StopCoroutine (PauseGame ());
@@ -104,6 +105,23 @@ public class DialogueOption : MonoBehaviour {
 				cs.change = "-5";
 				ps.change = "+10";
 			} else if (Input.GetKeyDown ("2")) {
+				GameObject f = Instantiate (stat);
+				temp = f;
+				GameObject c = Instantiate (stat);
+				GameObject p = Instantiate (stat);
+
+				heroPos = hero.transform.position;
+
+				f.transform.position = new Vector3 (heroPos.x, heroPos.y + 1.5f, heroPos.z - 5f);
+				c.transform.position = new Vector3 (heroPos.x + 1.5f, heroPos.y + 1.5f, heroPos.z - 5f);
+				p.transform.position = new Vector3 (heroPos.x - 1.5f, heroPos.y + 1.5f, heroPos.z - 5f);
+
+				StatController cs = c.GetComponent<StatController> ();
+				StatController ps = p.GetComponent<StatController> ();
+				 
+				cs.pickColor (0);
+				ps.pickColor (1);
+
 				int randomIndex = Random.Range (0, responses.Count);
 				speech.GetComponent<Text>().text = responses[randomIndex]; 
 				optionSelected = true;
@@ -113,12 +131,12 @@ public class DialogueOption : MonoBehaviour {
 				if (GameController.confidence + Random.Range(0, 30) > 85) {
 					// enemy makes no response
 					StopCoroutine(gameObject.GetComponent<EnemyController>().Catcall ());
-					StartCoroutine(gameObject.GetComponent<EnemyController>().Catcall ()); // FOR TESTING TODO
+					StartCoroutine(gameObject.GetComponent<EnemyController>().Catcall2 ()); // FOR TESTING TODO
 					GameController.confidence += 5;
 					cs.change = "+5";
 				} else {
 					StopCoroutine(gameObject.GetComponent<EnemyController>().Catcall ());
-					StartCoroutine (gameObject.GetComponent<EnemyController>().Catcall ()); // enemy responds
+					StartCoroutine (gameObject.GetComponent<EnemyController>().Catcall2 ()); // enemy responds
 					GameController.confidence -= 10;
 					GameController.paranoia += 20;
 					cs.change = "-10";
@@ -127,6 +145,8 @@ public class DialogueOption : MonoBehaviour {
 			}
 		}
 
+		StatController fs = temp.GetComponent<StatController> ();
+		fs.pickColor (2);
 		GameController.frustration += 5;
 		fs.change = "+5";
 
