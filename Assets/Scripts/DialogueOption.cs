@@ -62,8 +62,8 @@ public class DialogueOption : MonoBehaviour {
 		optionTwo.SetActive (true); // display the 2 key
 		optionOneText.SetActive (true); // display the first option 
 		optionTwoText.SetActive (true); // display the second option
-		optionOneText.GetComponent<Text> ().text = "I'll keep walking"; // retitle options
-		optionTwoText.GetComponent<Text> ().text = "I won't let this slide"; // retitle options
+		optionOneText.GetComponent<Text> ().text = "I'll keep walking..."; // retitle options
+		optionTwoText.GetComponent<Text> ().text = "*Retaliate*"; // retitle options
 		hero.GetComponent<Animator> ().enabled = false; // stop hero's walking
 		hero.GetComponent<SpriteRenderer> ().sprite = heroOrig; // reset hero's sprite
 
