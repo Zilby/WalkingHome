@@ -82,7 +82,7 @@ public class EnemyController : MonoBehaviour {
 
 	public IEnumerator Catcall() {
 		if (!comment.activeInHierarchy) {
-			comment.GetComponent<Text> ().text = comments[Random.Range (0, comments.Count)];
+			comment.GetComponentInChildren<Text> ().text = comments[Random.Range (0, comments.Count)];
 			comment.SetActive (true);
 			GameController.frustration += 10;
 			GameController.confidence -= 5;

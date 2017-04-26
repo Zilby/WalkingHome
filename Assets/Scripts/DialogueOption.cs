@@ -79,9 +79,9 @@ public class DialogueOption : MonoBehaviour {
 
 		heroPos = hero.transform.position;
 
-		f.transform.position = new Vector3 (heroPos.x, heroPos.y + 10, heroPos.z + 0.5f);
-		c.transform.position = new Vector3 (heroPos.x + 0.5f, heroPos.y + 10, heroPos.z + 0.5f);
-		p.transform.position = new Vector3 (heroPos.x - 0.5f, heroPos.y + 10, heroPos.z + 0.5f);
+		f.transform.position = new Vector3 (heroPos.x, heroPos.y + 1.5f, heroPos.z - 5f);
+		c.transform.position = new Vector3 (heroPos.x + 1.5f, heroPos.y + 1.5f, heroPos.z - 5f);
+		p.transform.position = new Vector3 (heroPos.x - 1.5f, heroPos.y + 1.5f, heroPos.z - 5f);
 
 		StatController fs = f.GetComponent<StatController> ();
 		StatController cs = c.GetComponent<StatController> ();
@@ -110,12 +110,14 @@ public class DialogueOption : MonoBehaviour {
 				choiceSelected = true;
 				StopCoroutine (PauseGame ());
 				Time.timeScale = 1.0f;
-				if (GameController.confidence > 35) {
+				if (GameController.confidence + Random.Range(0, 30) > 85) {
 					// enemy makes no response
+					StopCoroutine(gameObject.GetComponent<EnemyController>().Catcall ());
 					StartCoroutine(gameObject.GetComponent<EnemyController>().Catcall ()); // FOR TESTING TODO
 					GameController.confidence += 5;
 					cs.change = "+5";
 				} else {
+					StopCoroutine(gameObject.GetComponent<EnemyController>().Catcall ());
 					StartCoroutine (gameObject.GetComponent<EnemyController>().Catcall ()); // enemy responds
 					GameController.confidence -= 10;
 					GameController.paranoia += 20;
