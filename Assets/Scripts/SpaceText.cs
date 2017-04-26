@@ -28,6 +28,8 @@ public class SpaceText : MonoBehaviour {
 				SceneManager.LoadScene ("Scroller");
 			} else if (SceneManager.GetActiveScene().name.Equals("CreditsTransition")) {
 				SceneManager.LoadScene ("Credits");
+			} else if (SceneManager.GetActiveScene().name.Equals("Failure")) {
+				SceneManager.LoadScene ("TitleScreen");
 			}
 		}
 

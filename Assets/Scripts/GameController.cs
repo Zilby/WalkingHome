@@ -17,7 +17,7 @@ public class GameController : MonoBehaviour {
 
 	// public PlayerController p; TODO
 
-	private int secondsTilTrain = 420;
+	private int secondsTilTrain = 480;
 	private int counter;
 
 	public void Start() {
@@ -37,8 +37,10 @@ public class GameController : MonoBehaviour {
 		string s = SceneManager.GetActiveScene ().name;
 		if (s == "Scroller" || s == "Scroller3" || s == "Maze" || s == "City" || s == "Maze2" || s == "City2" || s == "EndScroller") {
 			stats.SetActive (true);
+			timer.SetActive (true);
 		} else {
 			stats.SetActive (false);
+			timer.SetActive (false);
 		}
 
 		frustration = Mathf.Clamp (frustration, 0, 100);
@@ -66,6 +68,7 @@ public class GameController : MonoBehaviour {
 			timer.GetComponent<Text> ().text = "Time Until Train: " + ClockTime (counter);
 			yield return new WaitForSeconds (1.0f);
 		}
+		SceneManager.LoadScene ("Failure");
 	}
 
 	string ClockTime(int sec) {
