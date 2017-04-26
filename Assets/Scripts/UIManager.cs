@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour {
 
 	public void Start() {
-		Time.timeScale = 1.0f;
+		Time.timeScale = 1.0f; 
 	}
 
 	// plays the game!

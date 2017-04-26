@@ -148,6 +148,7 @@ public class DialogueOption : MonoBehaviour {
 				stopPause = true;
 				Time.timeScale = 1.0f;
 
+				Debug.Log ("IFELSEVAL: " + ((int)GameController.confidence + Random.Range (0, 30)).ToString());
 				if (GameController.confidence + Random.Range(0, 30) > 85) {
 					StopCoroutine(GetComponent<EnemyController>().Catcall ());
 
