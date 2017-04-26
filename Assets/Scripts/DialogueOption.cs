@@ -49,7 +49,7 @@ public class DialogueOption : MonoBehaviour {
 		}
 	}
 
-	/* void OnTriggerEnter2D (Collider2D col) {
+	/*void OnTriggerEnter2D (Collider2D col) {
 		if (col.gameObject.name.Equals("Hero") && first) {
 			StartCoroutine(PauseGame ()); // give the player some time to make a decision -> freeze everything else!
 			StartCoroutine(DialogueOptions ()); // the player has an opportunity to impact the game
