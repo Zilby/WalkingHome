@@ -37,8 +37,19 @@ public class MazePlayerController : PlayerController {
 		xDir = Input.GetAxisRaw ("Horizontal");
 		yDir = Input.GetAxisRaw ("Vertical");
 		if (GameController.paranoia > 50 && !paranoid) {
-			StartCoroutine(ParanoiaCounter ());
+			StartCoroutine (Paranoid ());
 			paranoid = true;
+		}
+		if ((GameController.frustration == 30 || GameController.frustration == 70) && !frustrate) {
+			if (GameController.frustration == 30 && !f1) {
+				f1 = true;
+				StartCoroutine (Frustrated ());
+				frustrate = true;
+			} else if (GameController.frustration == 70 && !f2) {
+				f2 = true;
+				StartCoroutine (Frustrated ());
+				frustrate = true;
+			}
 		}
 	}
 

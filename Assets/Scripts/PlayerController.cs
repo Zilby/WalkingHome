@@ -10,11 +10,15 @@ public class PlayerController : MonoBehaviour {
     protected Rigidbody2D hero; // the hero's physics body
 	public SpriteRenderer sr; // the hero's sprite renderer
 	public List<GameObject> paranoi;
+	public List<GameObject> frustrates;
+	protected bool f1 = false; 
+	protected bool f2 = false;
 	// public SpriteRenderer friendRend; // the friend's sprite renderer
 	protected bool characterPause; // determines if the character will be stopped
 	protected Sprite orig;
 	protected Sprite friendOrig;
 	protected bool paranoid = false;
+	protected bool frustrate = false;
 
     public float moveSpeed; // determines the moveSpeed of the hero
 	public List<GameObject> initialThoughts;
@@ -65,14 +69,20 @@ public class PlayerController : MonoBehaviour {
 			MovePlayer (xDir, yDir); // moves the character
 		}
 		if (GameController.paranoia > 50 && !paranoid) {
-			StartCoroutine(ParanoiaCounter ());
+			StartCoroutine (Paranoid ());
 			paranoid = true;
 		}
-	}
-
-	public IEnumerator ParanoiaCounter () {
-		yield return new WaitForSeconds ((130 - GameController.paranoia) / 2);
-		StartCoroutine (Paranoid ());
+		if ((GameController.frustration == 30 || GameController.frustration == 70) && !frustrate) {
+			if (GameController.frustration == 30 && !f1) {
+				f1 = true;
+				StartCoroutine (Frustrated ());
+				frustrate = true;
+			} else if (GameController.frustration == 70 && !f2) {
+				f2 = true;
+				StartCoroutine (Frustrated ());
+				frustrate = true;
+			}
+		}
 	}
 
 	// moves the player, given two input floats
@@ -148,6 +158,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public IEnumerator Paranoid() {
+		yield return new WaitForSeconds ((130 - GameController.paranoia) / 2);
 		int i = Random.Range (0, paranoi.Count);
 		characterPause = true;
 		paranoi[i].SetActive (true);
@@ -157,6 +168,18 @@ public class PlayerController : MonoBehaviour {
 		characterPause = false;
 		paranoi[i].SetActive (false);
 		paranoid = false;
+	}
+
+	public IEnumerator Frustrated() {
+		yield return new WaitForSeconds (9);
+		int i = Random.Range (0, frustrates.Count);
+		characterPause = true;
+		frustrates[i].SetActive (true);
+		StartCoroutine(PauseAnim());
+		yield return new WaitForSeconds (3f);
+		characterPause = false;
+		frustrates[i].SetActive (false);
+		frustrate = false;
 	}
 
 	public bool CharacterPause
