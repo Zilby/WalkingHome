@@ -17,18 +17,24 @@ public class DialogueOption : MonoBehaviour {
 	public GameObject optionTwoText; // represents the associated choice
 	public GameObject hero; // represents the player
 	public GameObject stat; // to be created upon stat changes
+	public static List<string> responses = new List<string>(5);
+
 	private Sprite heroOrig; // represents the player's starting sprite
 	private bool optionSelected;
 	private bool first;
 	private Vector3 heroPos;
-
-	List<string> responses;
 
 	// Use this for initialization
 	void Start () {
 		heroOrig = hero.GetComponent<SpriteRenderer> ().sprite;
 		optionSelected = false;
 		first = true;
+
+		responses.Add("Could you leave me alone? Thanks.");
+		responses.Add("Hey, maybe you should try respecting women sometime.");
+		responses.Add("You know I'm a human being, right?");
+		responses.Add("You know, I'd atually rather not be catcalled right now.");
+		responses.Add("Concept: Maybe don't harass women on the street?");
 	}
 	
 	// Update is called once per frame
@@ -45,13 +51,13 @@ public class DialogueOption : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerEnter2D (Collider2D col) {
+	/* void OnTriggerEnter2D (Collider2D col) {
 		if (col.gameObject.name.Equals("Hero") && first) {
 			StartCoroutine(PauseGame ()); // give the player some time to make a decision -> freeze everything else!
 			StartCoroutine(DialogueOptions ()); // the player has an opportunity to impact the game
 			first = false;
 		}
-	}
+	} */
 
 	public IEnumerator DialogueOptions () {
 		bool choiceSelected = false;
@@ -102,6 +108,8 @@ public class DialogueOption : MonoBehaviour {
 				speech.GetComponent<Text>().text = responses[randomIndex]; 
 				optionSelected = true;
 				choiceSelected = true;
+				StopCoroutine (PauseGame ());
+				Time.timeScale = 1.0f;
 				if (GameController.confidence > 35) {
 					// enemy makes no response
 					GameController.confidence += 5;
@@ -141,10 +149,10 @@ public class DialogueOption : MonoBehaviour {
 		yield return new WaitForSeconds (0.01f); // for stableness of enum
 		Time.timeScale = 0.0f; // stops the game
 
-		int counter = 0;
-		while (!optionSelected && counter < 50) {
+		int pauseTime = 0;
+		while (!optionSelected && pauseTime < 50) {
 			yield return new WaitForSecondsRealtime (0.1f);
-			counter++;
+			pauseTime++;
 		}
 
 		optionSelected = true;

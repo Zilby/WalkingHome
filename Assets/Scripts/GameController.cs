@@ -24,8 +24,8 @@ public class GameController : MonoBehaviour {
 		paranoia = 0; // initializes paranoia to min
 		confidence = 100; // initializes confidence to max
 		frustration = 0; // initializes frustration to min
-		StartCoroutine(Doomsday());
 		counter = secondsTilTrain;
+		StartCoroutine(Doomsday());
 	}
 
 	void Awake()
@@ -58,12 +58,13 @@ public class GameController : MonoBehaviour {
 	}
 
 	public IEnumerator Doomsday() {
-		if (SceneManager.GetActiveScene ().name != "TitleScreen" && SceneManager.GetActiveScene ().name != "OpenerText") {
-			while (counter > 0) {
+		while (counter > 0) {
+			if (SceneManager.GetActiveScene ().name != "TitleScreen" && SceneManager.GetActiveScene ().name != "OpenerText") {
 				counter--;
-				timer.GetComponent<Text> ().text = "Time Until Train: " + ClockTime (counter);
-				yield return new WaitForSeconds (1.0f);
 			}
+
+			timer.GetComponent<Text> ().text = "Time Until Train: " + ClockTime (counter);
+			yield return new WaitForSeconds (1.0f);
 		}
 	}
 
