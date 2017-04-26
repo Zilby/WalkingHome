@@ -85,6 +85,35 @@ public class EnemyController : MonoBehaviour {
 			comment.GetComponentInChildren<Text> ().text = comments[Random.Range (0, comments.Count)];
 
 			comment.SetActive (true);
+
+			if (SceneManager.GetActiveScene ().name != "EndScroller") {
+				GameObject f = Instantiate (stat);
+				GameObject c = Instantiate (stat);
+				GameObject p = Instantiate (stat);
+
+				heroPos = GameObject.FindGameObjectWithTag ("hero").transform.position;
+
+				f.transform.position = new Vector3 (heroPos.x - .3f, heroPos.y, heroPos.z);
+				c.transform.position = new Vector3 (heroPos.x - .5f, heroPos.y, heroPos.z);
+				p.transform.position = new Vector3 (heroPos.x - .8f, heroPos.y, heroPos.z);
+
+				StatController cs = c.GetComponent<StatController> ();
+				StatController ps = p.GetComponent<StatController> ();
+				StatController fs = f.GetComponent<StatController> ();
+
+				cs.pickColor (0);
+				ps.pickColor (1);
+				fs.pickColor (2);
+
+				GameController.frustration += 5;
+				GameController.confidence -= 5;
+				GameController.paranoia += 10;
+
+				fs.change = "+5";
+				cs.change = "-5";
+				ps.change = "+10";
+			}
+
 			yield return new WaitForSeconds (3.0f);
 			comment.SetActive (false);
 
